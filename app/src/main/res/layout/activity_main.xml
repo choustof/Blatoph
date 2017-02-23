@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<!--<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" >-->
 
     <!-- Header aligned to top -->
-    <include layout="@layout/header" />
+   <!-- <include layout="@layout/header" /> -->
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer" />
 
     <!-- Content below header and above footer -->
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@layout/footer"
@@ -27,6 +26,17 @@
             android:text="Content goes here"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
-    </RelativeLayout>
 
+        <include layout="@layout/footer"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="146dp" />
+    </RelativeLayout> -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 </RelativeLayout>

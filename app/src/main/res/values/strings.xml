@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Blatoph</string>
     <string name="header">Le Header</string>
+    <string name="email">Email</string>
+    <string name="mdp">Mot de passe</string>
+    <string name="valider">Valider</string>
+    <string name="logo_connexion_dscription">Log page de connexion</string>
 </resources>
