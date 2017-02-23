@@ -16,8 +16,8 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/header"
+        android:layout_above="@layout/footer"
+        android:layout_below="@layout/header"
         android:background="@color/app_background"
         android:gravity="center">
 

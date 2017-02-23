@@ -10,8 +10,8 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/header"
+        android:layout_above="@layout/footer"
+        android:layout_below="@layout/header"
         android:background="@color/app_background"
         >
 
@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/Logo"
+            android:src="@drawable/logo"
 
             android:gravity="center"
             android:layout_marginTop="101dp"
