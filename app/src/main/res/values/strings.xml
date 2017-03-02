@@ -3,6 +3,10 @@
     <string name="header">Le Header</string>
     <string name="email">Email</string>
     <string name="mdp">Mot de passe</string>
+    <string name="confmdn">Confirmer le mot de passe</string>
     <string name="valider">Valider</string>
     <string name="logo_connexion_dscription">Log page de connexion</string>
+    <string name="creercompte">Créer le compte</string>
+    <string name="prendre_photo">Prendre photo</string>
+
 </resources>
