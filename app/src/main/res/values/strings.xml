@@ -5,4 +5,6 @@
     <string name="mdp">Mot de passe</string>
     <string name="valider">Valider</string>
     <string name="logo_connexion_dscription">Log page de connexion</string>
+    <string name="prendre_photo">Prendre photo</string>
+
 </resources>
