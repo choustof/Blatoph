@@ -5,8 +5,9 @@
     <string name="mdp">Mot de passe</string>
     <string name="confmdn">Confirmer le mot de passe</string>
     <string name="valider">Valider</string>
-    <string name="logo_connexion_dscription">Log page de connexion</string>
+    <string name="logo_connexion_dscription">Log page de conn exion</string>
     <string name="creercompte">Créer le compte</string>
     <string name="prendre_photo">Prendre photo</string>
+    <string name="pagecreationcpt">Page de création de compte</string>
 
 </resources>
