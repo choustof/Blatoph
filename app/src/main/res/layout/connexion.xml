@@ -21,10 +21,11 @@
             android:src="@drawable/logo"
             android:gravity="center"
             android:layout_height="250dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:contentDescription="@string/logo_connexion_dscription"
-            android:id="@+id/connexion_logo" />
+            android:id="@+id/connexion_logo"
+            android:layout_marginTop="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
 
         <EditText
@@ -32,33 +33,32 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:ems="10"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="54dp"
             android:id="@+id/editText_mdp"
+            android:text="@string/mdp"
             android:layout_above="@+id/bouton_connexion"
-            android:layout_alignLeft="@+id/editText_email"
-            android:layout_alignStart="@+id/editText_email"
-            android:text="@string/mdp" />
+            android:layout_alignStart="@+id/editText_email" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="37dp"
+            android:layout_marginBottom="49dp"
             android:id="@+id/editText_email"
+            android:text="@string/email"
             android:layout_above="@+id/editText_mdp"
-            android:layout_centerHorizontal="true"
-            android:text="@string/email" />
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:text="@string/valider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="60dp"
             android:id="@+id/bouton_connexion"
+            android:layout_marginStart="55dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignStart="@+id/editText_mdp" />
 
     </RelativeLayout>
 

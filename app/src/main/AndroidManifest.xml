@@ -2,14 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chris.blatoph">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera2.full" android:required="false" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    ...
-    <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
+
+    <uses-feature android:name="android.hardware.camera2.full" />
     <uses-feature android:name="android.hardware.location.gps" />
+
+
+    <uses-sdk android:minSdkVersion="21"
+        android:targetSdkVersion="21"
+        android:maxSdkVersion="21" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AppareilPhotoActivity"/>
     </application>
 
 </manifest>

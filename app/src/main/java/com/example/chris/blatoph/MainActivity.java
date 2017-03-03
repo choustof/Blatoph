@@ -1,7 +1,9 @@
 package com.example.chris.blatoph;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +11,26 @@ import android.widget.Button;
 import android.view.*;
 import android.hardware.camera2.*;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        /*Creation du dossier de stockage des fichiers de l'application*/
+        File mydir = new File(Environment.getExternalStorageDirectory() + "/Blatoph/");
+        if(!mydir.exists()) {
+            mydir.mkdirs();
+            Log.d("Dossier", "Creation du dossier Blatoph dans le dossier parent :"+ Environment.getExternalStorageDirectory().toString());
+        }
+        else {
+            Log.d("error", "Le dossier existe deja");
+        }
+
+
         setContentView(R.layout.connexion);
         Log.d("Lancement", "OK");
 
@@ -43,19 +60,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openCamera(){
-        /** A safe way to get an instance of the Camera object.
-        public static Camera getCameraInstance(){
-            Camera c = null;
-            try {
-                c = Camera.open(); // attempt to get a Camera instance
-            }
-            catch (Exception e){
-                // Camera is not available (in use or does not exist)
-            }
-            return c; // returns null if camera is unavailable
-        }*/
 
-        setContentView(R.layout.appareil_photo);
+        Intent intent = new Intent(this, AppareilPhotoActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -7,15 +7,21 @@
     android:layout_height="match_parent" >
 
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@layout/footer"
-        android:layout_below="@layout/header"
-        android:background="@color/app_background"
-        tools:ignore="UselessParent">
+    <TextureView
+        android:id="@+id/texture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true" />
+    <Button
+        android:id="@+id/bouton_prendre_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+         />
 
-
-    </RelativeLayout>
 
 </RelativeLayout>
