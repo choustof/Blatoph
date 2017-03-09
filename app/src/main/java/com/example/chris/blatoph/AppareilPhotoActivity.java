@@ -132,7 +132,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DATE, 1);
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        String formatted = format1.format(date.getTime());
+        String dateActuelle = format1.format(date.getTime());
 
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
@@ -141,8 +141,15 @@ public class AppareilPhotoActivity extends AppCompatActivity {
             if (characteristics != null) {
                 jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
             }
-            int width = 1280;
-            int height = 720;
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+
+            Log.d("Taille d ecran ",width + " " + height);
+
             if (jpegSizes != null && 0 < jpegSizes.length) {
                 width = jpegSizes[0].getWidth();
                 height = jpegSizes[0].getHeight();
@@ -158,7 +165,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
 
-            final File file = new File(Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-"+formatted+".jpg");
+            final File file = new File(Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-"+dateActuelle+".jpg");
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
