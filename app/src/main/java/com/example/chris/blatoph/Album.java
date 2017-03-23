@@ -125,7 +125,7 @@ public class Album extends Observable implements Edition{
     public String getInfos(){
 
         String infos;
-        infos = nom+ " - Cet album a été créé le "+dateCreation+" par "+createur.getPrenom()+" "+createur.getNom()+"\n";
+        infos = titre+ " - Cet album a été créé le "+dateCreation+" par "+createur.getPrenom()+" "+createur.getNom()+"\n";
         for(int i = 0; i<listePhotos.size();i++){
             infos += listePhotos.get(i)+"\n";
         }
@@ -138,6 +138,6 @@ public class Album extends Observable implements Edition{
      * @return Une chaine de caractere regroupant des informations sur l'albuù
      */
     public String toString(){
-        return nom;
+        return titre;
     }
 }

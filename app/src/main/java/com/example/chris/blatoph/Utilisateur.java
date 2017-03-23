@@ -81,13 +81,13 @@ public class Utilisateur implements Observer{
         String infos = "Mes Albums: \n";
         Collection<Album> elements= listeAlbums.values();
         for(Album album : elements){
-            infos += album.getNom()+"\n";
+            infos += album.getTitre()+"\n";
         }
 
         infos += "\nAlbums de mes amis: \n";
         elements= listeAlbumsSuivis.values();
         for(Album album : elements){
-            infos += album.getNom()+"\n";
+            infos += album.getTitre()+"\n";
         }
         return infos;
     }
@@ -114,12 +114,12 @@ public class Utilisateur implements Observer{
     public void nouvelAlbum(Album album) throws AjoutAlbumException{
 
         if(album.getCreateur().equals(this)){
-            if(listeAlbums.put(album.getNom(),album) == null){
+            if(listeAlbums.put(album.getTitre(),album) == null){
                 throw new AjoutAlbumException("Probleme lors de l'ajout de l'album");
             }
         }
         else{
-            if(listeAlbumsSuivis.put(album.getNom(),album) == null){
+            if(listeAlbumsSuivis.put(album.getTitre(),album) == null){
                 throw new AjoutAlbumException("Probleme lors de l'ajout de l'album");
             }
         }

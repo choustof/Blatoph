@@ -1,4 +1,4 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.TestsAppareilsPhoto;
 
 import android.content.Context;
 import android.hardware.Camera;

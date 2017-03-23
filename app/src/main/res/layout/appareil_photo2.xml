@@ -4,30 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".TestsAppareilsPhoto.MainActivity2">
+
+
 
     <FrameLayout
-        android:id="@+id/camera_view"
+        android:id="@+id/camera_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/bouton_changer_appareil"
+            android:id="@+id/bouton_prendre_photo2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="160dp" />
+            android:layout_marginLeft="135dp"
+            android:layout_marginTop="520dp" />
 
         <Button
-            android:id="@+id/bouton_prendre_photo"
+            android:id="@+id/bouton_changer_appareil2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            />
+            android:layout_marginStart="160dp" />
+
+
     </FrameLayout>
 
 

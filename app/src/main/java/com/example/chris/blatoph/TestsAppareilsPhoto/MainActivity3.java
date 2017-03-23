@@ -1,22 +1,27 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.TestsAppareilsPhoto;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+
+import com.example.chris.blatoph.R;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
 
-    @Override
+public class MainActivity3 extends AppCompatActivity {
+
+    private Camera appareilPhoto;
+    private PrevisualisationAppareilPhoto previsualisation;
+
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         /*Creation du dossier de stockage des fichiers de l'application*/
@@ -36,8 +41,15 @@ public class MainActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.bouton_connexion);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(appareilPhotoExiste(MainActivity.this)) {
-                    openCamera();
+                if(appareilPhotoExiste(MainActivity3.this)) {
+
+                    //On cré une instance de l'appareil photo
+                   appareilPhoto = ouvrirAppareilPhoto();
+
+                    // On cré la prévisualisation et on l'ajoute à la vue
+                    previsualisation = new PrevisualisationAppareilPhoto(MainActivity3.this, appareilPhoto);
+                    FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+                    preview.addView(previsualisation);
                 }
                 else{
                     button.setBackgroundColor(3);
@@ -50,18 +62,24 @@ public class MainActivity extends AppCompatActivity {
     /** Fonction qui vérifie que l'appareil contient bien un appareil photo */
     private boolean appareilPhotoExiste(Context context) {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
-            // au moins un appreil photo a été trouvé
+            // L'appareil a bien un appareil photo
             return true;
         } else {
-            // aucun appareil photo n'a été trouvé
+            // Aucun appareil photo n'a été trouvé
             return false;
         }
     }
 
-    private void openCamera(){
+    private static Camera ouvrirAppareilPhoto(){
 
-        Intent intent = new Intent(this, AppareilPhotoActivity.class);
-        startActivity(intent);
+        Camera c = null;
+        try {
+            c = Camera.open();
+        }
+        catch (Exception e){
+            Log.d("ERREUR", "Erreur lors de l'ouverture de l'appareil photo: " + e.getMessage());
+        }
+        return c;
     }
 
 }

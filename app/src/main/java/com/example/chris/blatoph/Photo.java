@@ -1,14 +1,18 @@
-package com.example.chris.blatoph;
+/* Classe obsolète ?
+Utilisation d'une imageview suffisant ?
+ */
 
 /**
  * Created by Sarah Pierson on 23/03/2017.
  */
 
+package com.example.chris.blatoph;
+import android.media.Image;
+
 import java.util.Date;
-import java.awt.image.*;
 
 
-public class Photo extends BufferedImage implements Edition,Comparable<Photo>{
+public class Photo  implements Edition,Comparable<Photo>{
 
     @SuppressWarnings("unused")
     private String nom, legende;
@@ -20,7 +24,7 @@ public class Photo extends BufferedImage implements Edition,Comparable<Photo>{
      * @params width, height, imageType, nom
      */
     public Photo(int width, int height, int imageType,String nom){
-        super(width,height,imageType);
+        //super(width,height,imageType);
         this.nom = nom;
         dateCreation = new Date();
     }

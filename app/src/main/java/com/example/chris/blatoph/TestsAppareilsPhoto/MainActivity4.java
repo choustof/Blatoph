@@ -1,31 +1,25 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.TestsAppareilsPhoto;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
+import android.view.*;
+
+import com.example.chris.blatoph.R;
 
 import java.io.File;
 
+public class MainActivity4 extends AppCompatActivity {
 
-
-public class MainActivity2 extends AppCompatActivity {
-
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Camera mCamera = null;
-    private AppareilPhotoActivity2 mCameraView = null;
-
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         /*Creation du dossier de stockage des fichiers de l'application*/
@@ -45,10 +39,8 @@ public class MainActivity2 extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.bouton_connexion);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(appareilPhotoExiste(MainActivity2.this)) {
-                   openCamera();
-                    //dispatchTakePictureIntent();
-
+                if(appareilPhotoExiste(MainActivity4.this)) {
+                    openCamera();
                 }
                 else{
                     button.setBackgroundColor(3);
@@ -71,28 +63,10 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void openCamera(){
 
-        setContentView(R.layout.appareil_photo2);
-
         try{
             mCamera = Camera.open(0);//you can use open(int) to use different cameras
         } catch (Exception e){
             Log.d("ERROR", "Failed to get camera: " + e.getMessage());
-        }
-
-        if(mCamera != null) {
-            mCameraView = new AppareilPhotoActivity2(this, mCamera);//create a SurfaceView to show camera data
-            FrameLayout camera_view = (FrameLayout)findViewById(R.id.camera_view);
-            camera_view.addView(mCameraView);//add the SurfaceView to the layout
-        }
-
-
-    }
-
-    /* FOnction qui fait appel à l'application appareil photo */
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
