@@ -9,9 +9,6 @@ public class Utilisateur implements Observer{
     private TreeMap <String,Album> listeAlbums, listeAlbumsSuivis;
     private TreeMap <String,Utilisateur> listeAmis;
 
-    public Utilisateur(){
-
-    }
 
 	/*
 	 * Constructeur d'un utilisateur
