@@ -17,6 +17,8 @@ public class Photo  implements Edition,Comparable<Photo>{
     @SuppressWarnings("unused")
     private String nom, legende;
     private Date dateCreation;
+    /*private String image;
+    /*voir pour la localisation
 
     /*
      * Constructeur d'une photo, avec un parametrage au niveau des dimensions, du type
@@ -84,5 +86,9 @@ public class Photo  implements Edition,Comparable<Photo>{
     public int compareTo(Photo photo){
 
         return dateCreation.compareTo(photo.getDate());
+    }
+
+    public void setLegende(String legende){
+        this.legende=legende;
     }
 }

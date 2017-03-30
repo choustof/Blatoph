@@ -14,7 +14,7 @@ public class Album extends Observable implements Edition{
     /*
      * Comme nous sommes en console, la liste de photo ne contient pas de vraies photos mais des Strings
      */
-    private ArrayList<String> listePhotos;
+    private ArrayList<Photo> listePhotos;
     private Utilisateur createur;
     private Date dateCreation;
     private Boolean albumCourant;
@@ -29,8 +29,8 @@ public class Album extends Observable implements Edition{
         this.titre = titre;
         this.createur = createur;
         dateCreation = new Date();
-        listePhotos = new ArrayList<String>();
-        dateCreation = new Date();
+        listePhotos = new ArrayList<Photo>();
+        this.albumCourant=false;
     }
 
 	/*
@@ -64,12 +64,18 @@ public class Album extends Observable implements Edition{
      * Methode qui permet d'ajouter une nouvelle photo a l'album
      * @params photo
      */
-    public boolean ajouterPhoto(String photo){
+    public boolean ajouterPhoto(Photo photo){
 
-        listePhotos.add(photo);
         setChanged();
         notifyObservers(photo);
+        listePhotos.add(photo);
         return true;
+    }
+
+    public boolean suprimerPhoto (Photo photo){
+        listePhotos.remove(photo);
+        return true;
+
     }
 
     /*
@@ -140,4 +146,13 @@ public class Album extends Observable implements Edition{
     public String toString(){
         return titre;
     }
+
+    public boolean setAlbumCourant(Boolean c){
+        albumCourant=c;
+        return true;
+    }
+
+
+
+
 }
