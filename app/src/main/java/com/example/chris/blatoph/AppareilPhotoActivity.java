@@ -28,6 +28,7 @@ import java.util.*;
 public class AppareilPhotoActivity extends AppCompatActivity {
     private static final String TAG = "AppareilPhotoActivity";
     private Button boutonPrendrePhoto;
+    private Button boutonSwitchAppareil;
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -46,6 +47,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 200;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
+    private int idAppareil = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,15 @@ public class AppareilPhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takePicture();
+            }
+        });
+
+        boutonSwitchAppareil = (Button) findViewById(R.id.bouton_switch_appareil);
+        assert boutonSwitchAppareil != null;
+        boutonSwitchAppareil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchAppareil();
             }
         });
     }
@@ -131,7 +142,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         /*On récupère l'heure actuelle pour que chaque photo enregistrée sur le téléphone ait un nom unique*/
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DATE, 1);
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         String dateActuelle = format1.format(date.getTime());
 
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
@@ -258,7 +269,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         try {
 
             /*On récupère l'appareil ayant comme ID "1". Il s'agit de l'appareil photo arrière*/
-            cameraId = manager.getCameraIdList()[0];
+           cameraId = manager.getCameraIdList()[idAppareil];
 
             /*On récupère les informations de l'appareil */
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
@@ -326,5 +337,18 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         //closeCamera();
         stopBackgroundThread();
         super.onPause();
+    }
+
+    protected void switchAppareil(){
+        if(idAppareil == 0){
+            idAppareil = 1;
+        }
+        else{
+            idAppareil = 0;
+        }
+
+        closeCamera();
+        Log.e(TAG,"On utilise l'appreil : "+ idAppareil);
+        openCamera();
     }
 }
