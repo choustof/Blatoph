@@ -18,7 +18,7 @@
 
         <ImageView
             android:layout_width="250dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/logoblatoph1"
             android:gravity="center"
             android:layout_height="250dp"
             android:contentDescription="@string/logo_connexion_dscription"
