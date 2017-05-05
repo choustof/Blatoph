@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("error", "Le dossier existe deja");
         }
 
-
-        setContentView(R.layout.connexion);
+// On charge la page d'accueil
+        setContentView(R.layout.parametrecompte);
         Log.d("Lancement", "OK");
 
-        final Button button = (Button) findViewById(R.id.bouton_connexion);
-        button.setOnClickListener(new View.OnClickListener() {
+      /*  final Button button = (Button) findViewById(R.id.bouton_connexion);
+  //      button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(appareilPhotoExiste(MainActivity.this)) {
                     openCamera();
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     button.setBackgroundColor(3);
                 }
             }
-        });
+        });*/
 
     }
 

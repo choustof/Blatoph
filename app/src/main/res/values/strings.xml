@@ -8,7 +8,9 @@
     <string name="logo_connexion_dscription">Log page de conn exion</string>
     <string name="creercompte">Créer le compte</string>
     <string name="prendre_photo">Prendre photo</string>
-    <string name="pagecreationcpt">Page de création de compte</string>
-
+    <string name="pagecreation_cpt">Page de création de compte</string>
+    <string name="parametre_cpt">Gestion des parametres du compte</string>
+    <string name="amis">Vos amis</string>
+    <string name="ajouter">Ajouter un ami</string>
 
 </resources>

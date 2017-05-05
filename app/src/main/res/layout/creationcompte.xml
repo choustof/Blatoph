@@ -17,7 +17,8 @@
         android:layout_above="@+id/button_creation"
         android:layout_alignLeft="@+id/editText_mdp"
         android:layout_alignStart="@+id/editText_mdp"
-        android:layout_marginBottom="22dp" />
+        android:layout_marginBottom="22dp"
+        android:textSize="18sp"/>
 
     <Button
         android:text="@string/creercompte"
@@ -44,14 +45,15 @@
         android:layout_marginTop="46dp" />
 
     <TextView
-        android:text="@string/pagecreationcpt"
+        android:id="@+id/nomPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="48dp"
-        android:id="@+id/nomPage"
         android:layout_alignLeft="@+id/editText_nom"
-        android:layout_alignStart="@+id/editText_nom" />
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editText_nom"
+        android:layout_marginTop="48dp"
+        android:text="@string/pagecreation_cpt"
+        android:textSize="18sp" />
 
     <EditText
         android:layout_width="wrap_content"

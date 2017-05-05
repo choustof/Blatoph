@@ -11,9 +11,7 @@ public class Album extends Observable implements Edition{
 
     private String titre;
 
-    /*
-     * Comme nous sommes en console, la liste de photo ne contient pas de vraies photos mais des Strings
-     */
+
     private ArrayList<Photo> listePhotos;
     private Utilisateur createur;
     private Date dateCreation;

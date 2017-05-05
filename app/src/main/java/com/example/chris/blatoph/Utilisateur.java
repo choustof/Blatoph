@@ -5,6 +5,7 @@ import java.util.*;
 
 
 public class Utilisateur implements Observer{
+
     private String nom,prenom,adresseMail,motDePasse;
     private TreeMap <String,Album> listeAlbums, listeAlbumsSuivis;
     private TreeMap <String,Utilisateur> listeAmis;
