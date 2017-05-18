@@ -12,5 +12,7 @@
     <string name="parametre_cpt">Gestion des parametres du compte</string>
     <string name="amis">Vos amis</string>
     <string name="ajouter">Ajouter un ami</string>
+    <string name="enregistrer">Enregistrer modifications</string>
+    <string name="parametre">Parametres</string>
 
 </resources>

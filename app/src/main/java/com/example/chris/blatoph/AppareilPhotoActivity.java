@@ -2,6 +2,7 @@ package com.example.chris.blatoph;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.*;
 import android.hardware.camera2.*;
@@ -63,15 +64,28 @@ public class AppareilPhotoActivity extends AppCompatActivity {
                 takePicture();
             }
         });
-
+// en note pour test
         boutonSwitchAppareil = (Button) findViewById(R.id.bouton_switch_appareil);
+        assert boutonSwitchAppareil != null;
+        boutonSwitchAppareil.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+            switchAppareil();
+        }
+        });
+
+
+
+        boutonSwitchAppareil = (Button) findViewById(R.id.parametre);
         assert boutonSwitchAppareil != null;
         boutonSwitchAppareil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchAppareil();
+                Intent intent = new Intent(getApplicationContext(), UtilisateurActivity.class);
+                startActivity(intent);
             }
         });
+          //  @Override
+
     }
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override

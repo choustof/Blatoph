@@ -21,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:weightSum="1">
 
           <TextView
             android:id="@+id/nompage"
@@ -64,6 +65,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="74dp"
                 android:text="@string/amis" />
+
+            <Button
+                android:id="@+id/enregistrer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="74dp"
+                android:text="@string/enregistrer" />
 
         </LinearLayout>
 

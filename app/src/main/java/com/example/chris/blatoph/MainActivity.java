@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 // On charge la page d'accueil
-        setContentView(R.layout.parametrecompte);
+        setContentView(R.layout.connexion);
         Log.d("Lancement", "OK");
 
-      /*  final Button button = (Button) findViewById(R.id.bouton_connexion);
-  //      button.setOnClickListener(new View.OnClickListener() {
+        final Button button = (Button) findViewById(R.id.bouton_connexion);
+        button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(appareilPhotoExiste(MainActivity.this)) {
                     openCamera();
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     button.setBackgroundColor(3);
                 }
             }
-        });*/
+        });
 
     }
 
