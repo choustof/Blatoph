@@ -1,4 +1,4 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
+
+import com.example.chris.blatoph.R;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;

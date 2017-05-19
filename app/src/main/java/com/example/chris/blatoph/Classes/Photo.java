@@ -6,8 +6,9 @@ Utilisation d'une imageview suffisant ?
  * Created by Sarah Pierson on 23/03/2017.
  */
 
-package com.example.chris.blatoph;
-import android.media.Image;
+package com.example.chris.blatoph.Classes;
+
+import com.example.chris.blatoph.Interfaces.Edition;
 
 import java.util.Date;
 

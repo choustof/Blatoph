@@ -1,4 +1,4 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.chris.blatoph.R;
 
 import java.io.File;
 

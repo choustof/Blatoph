@@ -1,4 +1,4 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Exceptions;
 
 /**
  * Created by Sarah Pierson on 23/03/2017.
