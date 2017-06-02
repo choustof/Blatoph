@@ -25,9 +25,21 @@ public class UtilisateurActivity extends AppCompatActivity {
         Log.d("Lancement", "OK");
 
 
+        final Button buttonAmis = (Button) findViewById(R.id.Amis);
+        buttonAmis.setOnClickListener(new View.OnClickListener() {
 
-        final Button button = (Button) findViewById(R.id.enregistrer);
-        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AmisActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+
+        final Button buttonEnregistrer = (Button) findViewById(R.id.enregistrer);
+        buttonEnregistrer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UtilisateurActivity.class);
                 startActivity(intent);

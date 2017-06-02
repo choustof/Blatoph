@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".AppareilPhotoActivity"/>
         <activity android:name=".UtilisateurActivity"/>
+        <activity android:name=".AmisActivity"/>
 
     </application>
 

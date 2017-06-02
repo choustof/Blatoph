@@ -14,5 +14,7 @@
     <string name="ajouter">Ajouter un ami</string>
     <string name="enregistrer">Enregistrer modifications</string>
     <string name="parametre">Parametres</string>
+    <string name="album">Album</string>
+    <string name="liste_album">Liste Album</string>
 
 </resources>
