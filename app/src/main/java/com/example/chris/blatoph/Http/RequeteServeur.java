@@ -1,9 +1,19 @@
 package com.example.chris.blatoph.Http;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+
 
 /**
  * Created by chris on 19/05/2017.
@@ -11,24 +21,46 @@ import java.net.URL;
 
 public class RequeteServeur {
 
-    private URL url;
+    private String url;
+    private RequestQueue queue;
 
-    public RequeteServeur(String url){
+    public RequeteServeur(Context context, String url){
 
-        //"http://192.168.43.53/blatoph-server/web/"
-        try {
-            this.url = new URL(url);
-        }
-
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        this.url = url;
+        queue = Volley.newRequestQueue(context);
     }
 
-    public JSONObject requete(int type, JSONObject requete){
+    public ArrayList<String> requeteGet(){
 
-        JSONObject reponse = new JSONObject();
+        final ArrayList<String> reponse = new ArrayList<String>();
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Display the first 500 characters of the response string.
+                        reponse.add(response);
+                        Log.d("Requete","Success");
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Requete", "Error");
+                reponse.add("That didn't work!");
+
+            }
+        });
+
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
         return reponse;
     }
+
+
 }
