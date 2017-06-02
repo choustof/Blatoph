@@ -1,13 +1,16 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Classes;
 
 /**
  * Created by Sarah Pierson on 23/03/2017.
  */
 
+import com.example.chris.blatoph.Interfaces.Edition;
+import com.example.chris.blatoph.Exceptions.ObservateurException;
+
 import java.util.*;
 
 
-public class Album extends Observable implements Edition{
+public class Album extends Observable implements Edition {
 
     private String titre;
 
@@ -83,7 +86,7 @@ public class Album extends Observable implements Edition{
      * @params u
      * @return indique le nom de la nouvelle personne avec qui l'album a ete paratage
      */
-    public String ajouterObservateur(Utilisateur u) throws ObservateurException{
+    public String ajouterObservateur(Utilisateur u) throws ObservateurException {
 
         String infos = "";
         if(u.equals(createur)){

@@ -24,16 +24,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppareilPhotoActivity"/>
-        <activity android:name=".UtilisateurActivity"/>
-        <activity android:name=".AmisActivity"/>
+
+        <activity android:name=".Activities.AppareilPhotoActivity"/>
+        <activity android:name=".Activities.UtilisateurActivity"/>
+        <activity android:name=".Activities.AmisActivity"/>
+
+
 
     </application>
 

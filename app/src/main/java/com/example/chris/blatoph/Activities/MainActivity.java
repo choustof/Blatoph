@@ -1,4 +1,4 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.chris.blatoph.Http.RequeteServeur;
+import com.example.chris.blatoph.R;
+
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
 // On charge la page d'accueil
         setContentView(R.layout.connexion);
         Log.d("Lancement", "OK");
+
+        RequeteServeur requete = new RequeteServeur(MainActivity.this, "http://192.168.43.53/blatoph-server/web/albums");
+
+        ArrayList<String> reponse = requete.requeteGet();
+
+        Log.d("Requete", reponse.toString());
 
         final Button button = (Button) findViewById(R.id.bouton_connexion);
         button.setOnClickListener(new View.OnClickListener() {

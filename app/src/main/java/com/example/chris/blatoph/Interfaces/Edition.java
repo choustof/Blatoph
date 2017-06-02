@@ -1,4 +1,4 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Interfaces;
 
 /*
  * L'interface Edition est utilis�e par les classes qui sont concern�es par les actions

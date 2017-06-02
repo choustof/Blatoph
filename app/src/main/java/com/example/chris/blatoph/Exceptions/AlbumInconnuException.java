@@ -1,30 +1,29 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Exceptions;
 
 /**
  * Created by Sarah Pierson on 23/03/2017.
  */
 
 @SuppressWarnings("serial")
+public class AlbumInconnuException extends Exception {
 
-public class ObservateurException extends Exception {
 
 	/*
-	 * Constructeur ObservateurException
+	 * Constructeur AlbumInconnuException
 	 * Constructeur qui fait appel au constructeur sans parametres de Exception
 	 */
 
-    public ObservateurException(){
+    public AlbumInconnuException(){
         super();
     }
 
 	/*
-	 * Constructeur ObservateurException
+	 * Constructeur AlbumInconnuException
 	 * Constructeur qui fait appel au constructeur qui prend un String en parametre
 	 * @params s
 	 */
 
-    public ObservateurException(String s){
+    public AlbumInconnuException(String s){
         super(s);
     }
 }
-

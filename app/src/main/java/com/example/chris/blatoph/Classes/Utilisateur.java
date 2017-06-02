@@ -1,5 +1,9 @@
-package com.example.chris.blatoph;
+package com.example.chris.blatoph.Classes;
 
+
+import com.example.chris.blatoph.Exceptions.AjoutAlbumException;
+import com.example.chris.blatoph.Exceptions.AlbumInconnuException;
+import com.example.chris.blatoph.Exceptions.AmiInconnuException;
 
 import java.util.*;
 
@@ -95,7 +99,7 @@ public class Utilisateur implements Observer{
      * @params nom
      * @return L'album dont le nom a ete passé en parametre
      */
-    public Album getAlbumByName(String nom) throws AlbumInconnuException{
+    public Album getAlbumByName(String nom) throws AlbumInconnuException {
 
         if(listeAlbums.get(nom) == null){
             throw new AlbumInconnuException("Cet album n'existe pas");
@@ -109,7 +113,7 @@ public class Utilisateur implements Observer{
      * @params album
      * @exception AjoutAlbumException
      */
-    public void nouvelAlbum(Album album) throws AjoutAlbumException{
+    public void nouvelAlbum(Album album) throws AjoutAlbumException {
 
         if(album.getCreateur().equals(this)){
             if(listeAlbums.put(album.getTitre(),album) == null){
@@ -145,7 +149,7 @@ public class Utilisateur implements Observer{
      * @params nom
      * @exception AmisInconnuException
      */
-    public void supprimerAmi(String nom) throws AmiInconnuException{
+    public void supprimerAmi(String nom) throws AmiInconnuException {
         if(listeAmis.containsKey(nom)){
             listeAmis.remove(nom);
         }
