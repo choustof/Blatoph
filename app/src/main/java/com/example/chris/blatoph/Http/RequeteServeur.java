@@ -1,6 +1,7 @@
 package com.example.chris.blatoph.Http;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -12,7 +13,12 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
@@ -21,38 +27,39 @@ import static java.lang.Thread.sleep;
  * Created by chris on 19/05/2017.
  */
 
-public class RequeteServeur {
+public class RequeteServeur extends AsyncTask<String, Void, String> {
 
-    private String url;
-    private RequestQueue queue;
+    protected String doInBackground(String ...url) {
+       return  requeteGet(url[0]);
 
-    public RequeteServeur(Context context, String url){
-
-        this.url = url;
     }
 
-    public ArrayList<String> requeteGet(){
+    protected void onPostExecute(Long result) {
+        Log.d("Requete", "PostExecute");
+    }
 
-        final ArrayList<String> reponse = new ArrayList<String>();
+    public String requeteGet(String url){
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    public void onResponse(String response) {
+        InputStream response = null;
+        String reponse = null;
+        URLConnection connection = null;
+        try {
+            connection = new URL(url).openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        connection.setRequestProperty("Accept-Charset", "UTF-8");
+        try {
+            response = new URL(url).openStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                        // Display the first 500 characters of the response string.
-                        reponse.add(response);
-                        Log.d("Requete",reponse.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Requete", "Error");
-                reponse.add("That didn't work!");
+        try (Scanner scanner = new Scanner(response)) {
+            reponse = scanner.useDelimiter("\\A").next();
+        }
 
-            }
-        });
-
+        Log.d("Requete", reponse);
         return reponse;
     }
 }

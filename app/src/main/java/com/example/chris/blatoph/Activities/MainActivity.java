@@ -38,11 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.connexion);
         Log.d("Lancement", "OK");
 
-        RequeteServeur requete = new RequeteServeur(MainActivity.this, "http://192.168.43.53/blatoph-server/web/albums");
-
-        ArrayList<String> reponse = requete.requeteGet();
-
-        Log.d("Requete", reponse.toString());
+        new RequeteServeur().execute("http://192.168.0.34/blatoph-server/web/albums");
 
         final Button button = (Button) findViewById(R.id.bouton_connexion);
         button.setOnClickListener(new View.OnClickListener() {
