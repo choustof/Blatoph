@@ -16,6 +16,7 @@ import com.example.chris.blatoph.R;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +39,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.connexion);
         Log.d("Lancement", "OK");
 
-        new RequeteServeur().execute("http://192.168.0.34/blatoph-server/web/albums");
+        RequeteServeur requete = new RequeteServeur();
+        String reponse = null;
+        try {
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Requete", "La reponse : "+reponse);
 
         final Button button = (Button) findViewById(R.id.bouton_connexion);
         button.setOnClickListener(new View.OnClickListener() {
