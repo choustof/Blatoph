@@ -14,6 +14,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 
 /**
  * Created by chris on 19/05/2017.
@@ -27,7 +29,6 @@ public class RequeteServeur {
     public RequeteServeur(Context context, String url){
 
         this.url = url;
-        queue = Volley.newRequestQueue(context);
     }
 
     public ArrayList<String> requeteGet(){
@@ -37,14 +38,11 @@ public class RequeteServeur {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
-                    @Override
                     public void onResponse(String response) {
 
                         // Display the first 500 characters of the response string.
                         reponse.add(response);
-                        Log.d("Requete","Success");
-
-
+                        Log.d("Requete",reponse.toString());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -55,12 +53,6 @@ public class RequeteServeur {
             }
         });
 
-
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
         return reponse;
     }
-
-
 }
