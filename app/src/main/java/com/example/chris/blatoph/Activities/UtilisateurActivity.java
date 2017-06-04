@@ -34,15 +34,11 @@ public class UtilisateurActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         final Button buttonEnregistrer = (Button) findViewById(R.id.enregistrer);
         buttonEnregistrer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), UtilisateurActivity.class);
-                startActivity(intent);
+                finish();
+                startActivity(getIntent());
             }
 
 

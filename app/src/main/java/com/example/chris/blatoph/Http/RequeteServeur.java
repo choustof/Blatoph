@@ -21,26 +21,27 @@ import java.util.Scanner;
  * Created by chris on 19/05/2017.
  */
 
-public class RequeteServeur extends AsyncTask<String, Void, String> {
+public class RequeteServeur extends AsyncTask<String, Void, JSONArray> {
 
-    protected String doInBackground(String ...params) {
+    protected JSONArray doInBackground(String ...params) {
 
         String reponse = null;
+        JSONArray reponseJSON = null;
 
         switch(params[0]){
-            case "GET": reponse = requeteGet(params[1]);
+            case "GET": reponseJSON = requeteGet(params[1]);
                 break;
-            case "POST": reponse = requetePost(params[1], params[2]);
+            case "POST": reponseJSON = requetePost(params[1], params[2]);
                 break;
-            case "PUT": reponse = requetePut(params[1], params[2]);
+            case "PUT": reponseJSON = requetePut(params[1], params[2]);
                 break;
-            case "DELETE": reponse = requeteDelete(params[1]);
+            case "DELETE": reponseJSON = requeteDelete(params[1]);
                 break;
-            default: reponse = "Mauvais type de requete";
+            default: reponseJSON = null;
                 break;
         }
 
-       return  reponse;
+       return  reponseJSON;
 
     }
 
@@ -48,20 +49,21 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
         Log.d("Requete", "PostExecute");
     }
 
-    public String requeteGet(String url){
+    public JSONArray requeteGet(String url){
 
         InputStream response = null;
         String reponse = null;
         HttpURLConnection connection = null;
         URL obj = null;
         JSONObject reponseJson = new JSONObject();
-
+        JSONArray lejson = new JSONArray();
         int codeReponse = 0;
 
         try {
             obj = new URL(url);
             connection = (HttpURLConnection) obj.openConnection();
             connection.setRequestProperty("Accept-Charset", "UTF-8");
+            connection.setRequestProperty("Content-Type", "application/json");
             codeReponse = connection.getResponseCode();
             response = new URL(url).openStream();
 
@@ -74,17 +76,23 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
         try (Scanner scanner = new Scanner(response)) {
             reponse = scanner.useDelimiter("\\A").next();
         }
-
-        try {
-            reponseJson.put("code",codeReponse);
-            reponseJson.put("reponse",reponse);
-        } catch (JSONException e) {
+        catch(NullPointerException e){
             e.printStackTrace();
         }
-        return reponseJson.toString();
+
+        try {
+
+            lejson = new JSONArray(reponse);
+            reponseJson.put("code",codeReponse);
+
+            lejson.put(reponseJson);
+        } catch (JSONException e) {
+            Log.d("Requete", e.getMessage());
+        }
+        return lejson;
     }
 
-    public String requetePost(String url, String body){
+    public JSONArray requetePost(String url, String body){
 
         InputStream response = null;
         String reponse = null;
@@ -92,12 +100,9 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
         URL obj = null;
         int codeReponse = 0;
 
-        JSONObject album = new JSONObject();
         JSONObject reponseJson = new JSONObject();
+        JSONArray lejson = new JSONArray();
         try {
-            album.put("titre","Album 9");
-            album.put("date_creation","08-89");
-            album.put("uti_id",1);
 
             obj = new URL(url);
             connection = (HttpURLConnection) obj.openConnection();
@@ -106,14 +111,12 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
             connection.setRequestProperty("Content-Type", "application/json");
 
             OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
-            wr.write(album.toString());
+            wr.write(body);
             wr.flush();
 
             codeReponse = connection.getResponseCode();
             response = new URL(url).openStream();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
 
@@ -126,29 +129,27 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
         }
 
         try {
+            lejson = new JSONArray(reponse);
             reponseJson.put("code",codeReponse);
-            reponseJson.put("reponse",reponse);
+
+            lejson.put(reponseJson);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("Requete", e.getMessage());
         }
-        return reponseJson.toString();
+        return lejson;
     }
 
-    public String requetePut(String url, String body){
+    public JSONArray requetePut(String url, String body){
 
         InputStream response = null;
         String reponse = null;
         HttpURLConnection connection = null;
         URL obj = null;
         int codeReponse = 0;
+        JSONArray lejson = new JSONArray();
 
-        JSONObject album = new JSONObject();
         JSONObject reponseJson = new JSONObject();
         try {
-            album.put("titre","Album 20");
-            album.put("date_creation","77777 Marne-la-Vallée");
-            album.put("uti_id",1);
-
             obj = new URL(url);
             connection = (HttpURLConnection) obj.openConnection();
             connection.setRequestMethod("PUT");
@@ -156,14 +157,12 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
             connection.setRequestProperty("Content-Type", "application/json");
 
             OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
-            wr.write(album.toString());
+            wr.write(body);
             wr.flush();
 
             codeReponse = connection.getResponseCode();
             response = new URL(url).openStream();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
 
@@ -176,21 +175,24 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
         }
 
         try {
+            lejson = new JSONArray(reponse);
             reponseJson.put("code",codeReponse);
-            reponseJson.put("reponse",reponse);
+
+            lejson.put(reponseJson);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("Requete", e.getMessage());
         }
-        return reponseJson.toString();
+        return lejson;
     }
 
-    public String requeteDelete(String url){
+    public JSONArray requeteDelete(String url){
 
         InputStream response = null;
         String reponse = null;
         HttpURLConnection connection = null;
         URL obj = null;
         int codeReponse = 0;
+        JSONArray lejson = new JSONArray();
 
         JSONObject reponseJson = new JSONObject();
         try {
@@ -209,10 +211,13 @@ public class RequeteServeur extends AsyncTask<String, Void, String> {
         }
 
         try {
+            lejson = new JSONArray();
             reponseJson.put("code",codeReponse);
+
+            lejson.put(reponseJson);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("Requete", e.getMessage());
         }
-        return reponseJson.toString();
+        return lejson;
     }
 }

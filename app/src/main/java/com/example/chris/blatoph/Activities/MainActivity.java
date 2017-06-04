@@ -6,12 +6,18 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.chris.blatoph.Http.RequeteServeur;
 import com.example.chris.blatoph.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -39,9 +45,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.connexion);
         Log.d("Lancement", "OK");
 
+        /* Structure de requete HTTP
+
+        JSONObject album = new JSONObject();
+        try {
+            album.put("titre","Album 30");
+            album.put("date_creation","08-89");
+            album.put("uti_id",1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         RequeteServeur requete = new RequeteServeur();
         String reponse = null;
         try {
+            reponse = requete.execute("POST","http://192.168.0.34/blatoph-server/web/albums",album.toString()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -50,15 +68,55 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("Requete", "La reponse : "+reponse);
 
+        */
+
+        final EditText email = (EditText)findViewById(R.id.editText_email);
+        final EditText mdp = (EditText)findViewById(R.id.editText_mdp);
         final Button button = (Button) findViewById(R.id.bouton_connexion);
+        final int count = 0;
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(appareilPhotoExiste(MainActivity.this)) {
-                    openCamera();
+
+                RequeteServeur requete = new RequeteServeur();
+                JSONArray reponse = null;
+                JSONObject id = null;
+                JSONObject code = null;
+                String username = email.getText().toString();
+                String password = mdp.getText().toString();
+
+                String url = "http://192.168.0.34/blatoph-server/web/utilisateurs/"+
+                        username+"/"+password;
+
+                try {
+                    reponse = requete.execute("GET",url,"").get();
+                    Log.d("Requete", "La reponse : "+reponse.toString());
+
+                    id = reponse.getJSONObject(0);
+                    code = reponse.getJSONObject(1);
+
+                   if(code.getString("code").equals("200") ){
+                       importationDonneesUtilisateur(id.getString("id"));
+                        if(appareilPhotoExiste(MainActivity.this)) {
+                            openCamera();
+                        }
+                        else{
+                            button.setBackgroundColor(3);
+                        }
+                    }
+                    else{
+                        /*finish();
+                        startActivity(getIntent());*/
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
-                else{
-                    button.setBackgroundColor(3);
-                }
+
+
             }
         });
 
@@ -81,4 +139,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    protected void importationDonneesUtilisateur(String id){
+
+        Log.d("Requete","The id is "+id);
+    }
 }

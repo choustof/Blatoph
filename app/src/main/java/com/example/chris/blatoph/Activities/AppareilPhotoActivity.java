@@ -331,8 +331,8 @@ public class AppareilPhotoActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                // close the app
-                Toast.makeText(AppareilPhotoActivity.this, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
+                // Fermeture de l'application
+                Toast.makeText(AppareilPhotoActivity.this, "Application inutilisble sans la permission", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -368,4 +368,5 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         Log.e(TAG,"On utilise l'appreil : "+ idAppareil);
         openCamera();
     }
+
 }
