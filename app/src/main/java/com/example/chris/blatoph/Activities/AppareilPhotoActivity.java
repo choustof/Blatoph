@@ -33,6 +33,8 @@ public class AppareilPhotoActivity extends AppCompatActivity {
     private static final String TAG = "AppareilPhotoActivity";
     private Button boutonPrendrePhoto;
     private Button boutonSwitchAppareil;
+    private Button boutonParametre;
+    private Button boutonListeAlbum;
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -65,6 +67,8 @@ public class AppareilPhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takePicture();
+                Intent intent = new Intent(getApplicationContext(), ParamPhotoActivity.class);
+                startActivity(intent);
             }
         });
 // en note pour test
@@ -77,16 +81,29 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         });
 
 
-
-        boutonSwitchAppareil = (Button) findViewById(R.id.parametre);
-        assert boutonSwitchAppareil != null;
-        boutonSwitchAppareil.setOnClickListener(new View.OnClickListener() {
+//BOUTON PARAMETRE
+        boutonParametre = (Button) findViewById(R.id.parametre);
+        assert boutonParametre != null;
+        boutonParametre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UtilisateurActivity.class);
                 startActivity(intent);
             }
         });
+
+
+        boutonListeAlbum = (Button) findViewById(R.id.album);
+        assert boutonListeAlbum != null;
+        boutonListeAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ListeAlbumActivitiy.class);
+                startActivity(intent);
+            }
+        })
+
+        ;
           //  @Override
 
     }
@@ -368,5 +385,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         Log.e(TAG,"On utilise l'appreil : "+ idAppareil);
         openCamera();
     }
+
+
 
 }

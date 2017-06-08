@@ -15,6 +15,11 @@
     <string name="enregistrer">Enregistrer modifications</string>
     <string name="parametre">Parametres</string>
     <string name="album">Album</string>
-    <string name="liste_album">Liste Album</string>
+    <string name="nvx">Nouveau</string>
+    <string name="liste_album">Liste des Albums</string>
+    <string name="param_photo">Paramêtre de la photo</string>
+    <string name="titre">Titre</string>
+    <string name="légende">Légende</string>
+    <string name="ajouter_courant">Ajouter la photo à album courant</string>
 
 </resources>
