@@ -3,6 +3,8 @@ package com.example.chris.blatoph.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
-import com.example.chris.blatoph.Http.RequeteServeur;
+import com.example.chris.blatoph.Http.*;
 import com.example.chris.blatoph.R;
 
 import org.json.JSONArray;
@@ -20,7 +23,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -70,6 +77,21 @@ public class MainActivity extends AppCompatActivity {
 
         */
 
+     /*   RequeteServeurFile requeteFile = new RequeteServeurFile();
+
+        Bitmap myBitmap = null;
+        try {
+            myBitmap = requeteFile.execute("GET","e9e7422c5a11f6baa9d25e424f782b0c.png").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        final ImageView tv1 = (ImageView) findViewById(R.id.connexion_logo);
+        tv1.setImageBitmap(myBitmap);
+
+        */
         final EditText email = (EditText)findViewById(R.id.editText_email);
         final EditText mdp = (EditText)findViewById(R.id.editText_mdp);
         final Button button = (Button) findViewById(R.id.bouton_connexion);
@@ -84,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 String username = email.getText().toString();
                 String password = mdp.getText().toString();
 
-                String url = "http://192.168.0.34/blatoph-server/web/utilisateurs/"+
+                String url = "http://192.168.43.53/blatoph-server/web/utilisateurs/"+
                         username+"/"+password;
 
                 try {
@@ -144,4 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("Requete","The id is "+id);
     }
+
+
 }
