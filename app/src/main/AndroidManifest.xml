@@ -32,7 +32,8 @@
             </intent-filter>
         </activity>
 
-
+        PhotoActivity
+        <activity android:name=".Activities.AppareilPhotoActivity"/>
         <activity android:name=".Activities.UtilisateurActivity"/>
         <activity android:name=".Activities.AmisActivity"/>
         <activity android:name=".Activities.ParamPhotoActivity"/>
