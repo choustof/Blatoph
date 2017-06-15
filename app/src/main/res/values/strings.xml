@@ -16,8 +16,9 @@
     <string name="parametre">Parametres</string>
     <string name="album">Album</string>
     <string name="nvx">Nouveau</string>
-    <string name="liste_album">Liste des Albums</string>
-    <string name="param_photo">Paramêtre de la photo</string>
+    <string name="liste_album">Liste des albums</string>
+    <string name="liste_photo">Liste des photos</string>
+    <string name="param_photo">Paramètre de la photo</string>
     <string name="titre">Titre</string>
     <string name="légende">Légende</string>
     <string name="ajouter_courant">Ajouter la photo à album courant</string>

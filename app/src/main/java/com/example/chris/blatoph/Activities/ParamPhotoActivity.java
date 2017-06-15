@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
 
 /**
@@ -21,7 +22,10 @@ public class ParamPhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.param_photo);
-        Log.d("Lancement", "OK");
+
+
+//        LesObjets obj = (LesObjets)getApplicationContext();
+     //   Log.d("LE PATH", obj.getPath());
 
 
 

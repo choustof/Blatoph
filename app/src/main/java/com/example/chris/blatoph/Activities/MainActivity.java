@@ -3,6 +3,7 @@ package com.example.chris.blatoph.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,10 +35,18 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String photoPath;
+    Resources res;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        //Ne pas ouvrir le clavier à l'ouverture
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        //Permet de récupérer les données stockées dans le dossier des ressources
+        res = this.getResources();
 
         /*Creation du dossier de stockage des fichiers de l'application*/
         File mydir = new File(Environment.getExternalStorageDirectory() + "/Blatoph/");
@@ -93,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
         */
         final EditText email = (EditText)findViewById(R.id.editText_email);
+        email.setHint(res.getString(R.string.email));
         final EditText mdp = (EditText)findViewById(R.id.editText_mdp);
+        mdp.setHint(res.getString(R.string.mdp));
         final Button button = (Button) findViewById(R.id.bouton_connexion);
         final int count = 0;
         button.setOnClickListener(new View.OnClickListener() {
@@ -109,36 +121,37 @@ public class MainActivity extends AppCompatActivity {
                 String url = "http://192.168.43.53/blatoph-server/web/utilisateurs/"+
                         username+"/"+password;
 
-                try {
-                    reponse = requete.execute("GET",url,"").get();
-                    Log.d("Requete", "La reponse : "+reponse.toString());
+                if(true){
+                    openCamera();
+                }else {
+                    try {
+                        reponse = requete.execute("GET", url, "").get();
+                        Log.d("Requete", "La reponse : " + reponse.toString());
 
-                    id = reponse.getJSONObject(0);
-                    code = reponse.getJSONObject(1);
+                        id = reponse.getJSONObject(0);
+                        code = reponse.getJSONObject(1);
 
-                   if(code.getString("code").equals("200") ){
-                       importationDonneesUtilisateur(id.getString("id"));
-                        if(appareilPhotoExiste(MainActivity.this)) {
-                            openCamera();
-                        }
-                        else{
-                            button.setBackgroundColor(3);
-                        }
-                    }
-                    else{
+                        if (code.getString("code").equals("200")) {
+                            importationDonneesUtilisateur(id.getString("id"));
+                            if (appareilPhotoExiste(MainActivity.this)) {
+                                openCamera();
+                            } else {
+                                button.setBackgroundColor(3);
+                            }
+                        } else {
                         /*finish();
                         startActivity(getIntent());*/
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
                 }
-
-
             }
         });
 
@@ -165,6 +178,14 @@ public class MainActivity extends AppCompatActivity {
     protected void importationDonneesUtilisateur(String id){
 
         Log.d("Requete","The id is "+id);
+    }
+
+    public String getPhotoPath(){
+        return photoPath;
+    }
+
+    public void setPhotoPath(String newPath){
+        photoPath = newPath;
     }
 
 

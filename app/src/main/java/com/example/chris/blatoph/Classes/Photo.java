@@ -8,27 +8,32 @@ Utilisation d'une imageview suffisant ?
 
 package com.example.chris.blatoph.Classes;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+
 import com.example.chris.blatoph.Interfaces.Edition;
 
+import java.io.File;
 import java.util.Date;
 
 
 public class Photo  implements Edition,Comparable<Photo>{
 
-    @SuppressWarnings("unused")
-    private String nom, legende;
+    private String titre, legende;
     private Date dateCreation;
-    /*private String image;
-    /*voir pour la localisation
+    private String image;
 
     /*
      * Constructeur d'une photo, avec un parametrage au niveau des dimensions, du type
-     * et du nom de la photo
-     * @params width, height, imageType, nom
+     * et du titre de la photo
+     * @params width, height, imageType, titre
      */
-    public Photo(int width, int height, int imageType,String nom){
-        //super(width,height,imageType);
-        this.nom = nom;
+    public Photo(String titre, String legende, String image){
+        this.titre = titre;
+        this.image = image;
         dateCreation = new Date();
     }
 
@@ -39,7 +44,7 @@ public class Photo  implements Edition,Comparable<Photo>{
 
     public boolean renommer(String renommer){
 
-        nom = renommer;
+        titre = renommer;
         return true;
 
     }
@@ -70,14 +75,23 @@ public class Photo  implements Edition,Comparable<Photo>{
     }
 
 	/*
-	 * Methode getNom
-	 * return Le nom de la photo sous forme de chaine de caractere
+	 * Methode getTitre
+	 * return Le titre de la photo sous forme de chaine de caractere
 	 */
 
-    public String getNom(){
-        return nom;
+    public String getTitre(){
+        return titre;
     }
 
+    public Bitmap getImage(){
+
+        File image = new File(this.image);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+        bitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth(),bitmap.getHeight(),true);
+
+        return bitmap;
+    }
     /*
      *
      * (non-Javadoc)

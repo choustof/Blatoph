@@ -16,6 +16,7 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 
+import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
 
 import java.io.*;
@@ -210,7 +211,13 @@ public class AppareilPhotoActivity extends AppCompatActivity {
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
 
-            final File file = new File(Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-"+dateActuelle+".jpg");
+            final String photoPath = Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-"+dateActuelle+".jpg";
+
+            Log.d("PATH",photoPath);
+           // final File file = new File(photoPath);
+          //  LesObjets obj = (LesObjets)getApplicationContext();
+          //  obj.setPath(photoPath);
+
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {

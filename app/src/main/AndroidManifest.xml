@@ -23,7 +23,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:largeHeap="true"
+        >
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,12 +34,12 @@
             </intent-filter>
         </activity>
 
-        PhotoActivity
         <activity android:name=".Activities.AppareilPhotoActivity"/>
         <activity android:name=".Activities.UtilisateurActivity"/>
         <activity android:name=".Activities.AmisActivity"/>
         <activity android:name=".Activities.ParamPhotoActivity"/>
         <activity android:name=".Activities.ListeAlbumActivitiy"/>
+        <activity android:name=".Activities.ListePhotoActivity"/>
 
 
 
