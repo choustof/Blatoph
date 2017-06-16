@@ -3,17 +3,13 @@ package com.example.chris.blatoph.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.chris.blatoph.Http.*;
 import com.example.chris.blatoph.R;
@@ -23,12 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -95,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText email = (EditText)findViewById(R.id.editText_email);
         final EditText mdp = (EditText)findViewById(R.id.editText_mdp);
         final Button button = (Button) findViewById(R.id.bouton_connexion);
+
         final int count = 0;
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -140,6 +131,17 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
+        });
+
+        final Button button2 = (Button) findViewById(R.id.nouvel_utilisateur);
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("Nouveau", "On passe");
+                Intent intent = new Intent(getApplicationContext(), CreationCompteActivity.class);
+                startActivity(intent);
+            }
+
+
         });
 
     }

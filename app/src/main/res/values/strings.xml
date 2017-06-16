@@ -21,5 +21,6 @@
     <string name="titre">Titre</string>
     <string name="légende">Légende</string>
     <string name="ajouter_courant">Ajouter la photo à album courant</string>
+    <string name="nouveau">Nouveau</string>
 
 </resources>

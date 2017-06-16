@@ -33,6 +33,7 @@
         </activity>
 
         PhotoActivity
+        <activity android:name=".Activities.CreationCompteActivity"/>
         <activity android:name=".Activities.AppareilPhotoActivity"/>
         <activity android:name=".Activities.UtilisateurActivity"/>
         <activity android:name=".Activities.AmisActivity"/>
