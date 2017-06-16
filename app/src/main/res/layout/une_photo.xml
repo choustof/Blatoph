@@ -6,9 +6,9 @@
 
     <ImageView
         android:contentDescription="row"
-        android:id="@+id/icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/image_photo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:layout_marginTop="5dp"
@@ -17,14 +17,15 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/titre_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:text="text"
-        android:textSize="26sp" >
+        android:textSize="26sp"
+        android:layout_above="@+id/image_photo">
     </TextView>
 
 </LinearLayout>
