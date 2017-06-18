@@ -36,7 +36,7 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
         switch (params[0]){
             case "GET": myBitmap = getBitmapFromURL("http://192.168.43.53/blatoph-server/web/images/"+params[1]);
                 break;
-            case "POST": requetePost("http://192.168.43.53/blatoph-server/web/photos","");
+            case "POST": requetePost("http://192.168.0.34/blatoph-server/web/photos","");
                 break;
             case "PUT": requetePut(params[1], params[2]);
                 break;
@@ -127,15 +127,25 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             connection.setUseCaches(false);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Connection","Keep-Alive");
-            connection.setRequestProperty("Content-Type", "multipart/(form-data;boundary=*****");
+            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
+            connection.setRequestProperty("postman-token", "578b9894-723f-743b-d469-ac41a73de2f4");
 
             Log.d("Reponse POST", lineEnd);
 
             dos = new DataOutputStream(connection.getOutputStream());
             Log.d("Reponse POST", "On est la");
             dos.writeBytes(twoHyphens+boundary+lineEnd);
-
-            dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\""+ "blatoph-2017-06-03-15-40-17.jpg"+"\""+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\""+ Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"+"\""+lineEnd);
+            dos.writeBytes(twoHyphens+boundary+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\\\"titre\\\"\\r\\n\\r\\nMDR"+lineEnd);
+            dos.writeBytes(twoHyphens+boundary+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\\\"legende\\\"\\r\\n\\r\\nLOL"+lineEnd);
+            dos.writeBytes(twoHyphens+boundary+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\\\"date_creation\\\"\\r\\n\\r\\nhier"+lineEnd);
+            dos.writeBytes(twoHyphens+boundary+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\\\"alb_id\\\"\\r\\n\\r\\n1"+lineEnd);
+            dos.writeBytes(twoHyphens+boundary+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\\\"uti_id\\\"\\r\\n\\r\\n1"+lineEnd);
             dos.writeBytes(lineEnd);
 
 
@@ -148,6 +158,8 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
                 bytesAvailable = fileInputStream.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                Log.d("Reponse POST", "+1");
+
             }
             dos.writeBytes(lineEnd);
             dos.writeBytes(twoHyphens+boundary+twoHyphens+lineEnd);
@@ -156,9 +168,11 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             dos.close();
 
             codeReponse = connection.getResponseCode();
+
+            Log.d("Reponse POST", ""+codeReponse);
             response = new URL(url).openStream();
 
-            Log.d("Reponse POST", reponse);
+           // Log.d("Reponse POST", reponse);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -278,4 +292,5 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             return null;
         }
     }
+
 }

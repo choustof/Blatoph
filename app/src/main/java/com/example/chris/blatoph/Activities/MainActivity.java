@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 RequeteServeur requete = new RequeteServeur();
+                RequeteServeurFile requeteFile = new RequeteServeurFile();
                 JSONArray reponse = null;
                 JSONObject id = null;
                 JSONObject code = null;
@@ -112,17 +113,18 @@ public class MainActivity extends AppCompatActivity {
                 String url = "http://192.168.43.53/blatoph-server/web/utilisateurs/"+
                         username+"/"+password;
 
-                if(true){
+                if(false){
                     openCamera();
                 }else {
                     try {
-                        reponse = requete.execute("GET", url, "").get();
-                        Log.d("Requete", "La reponse : " + reponse.toString());
+                        requeteFile.execute("POST", url, "");
+                       // reponse = requete.execute("GET", url, "").get();
+                       // Log.d("Requete", "La reponse : " + reponse.toString());
 
-                        id = reponse.getJSONObject(0);
-                        code = reponse.getJSONObject(1);
+                       // id = reponse.getJSONObject(0);
+                        //code = reponse.getJSONObject(1);
 
-                        if (code.getString("code").equals("200")) {
+                        if (false) {
                             importationDonneesUtilisateur(id.getString("id"));
                             if (appareilPhotoExiste(MainActivity.this)) {
                                 openCamera();
@@ -136,11 +138,11 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    } catch (InterruptedException e) {
+                    } /*catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
-                    }
+                    }*/
 
                 }
             }
