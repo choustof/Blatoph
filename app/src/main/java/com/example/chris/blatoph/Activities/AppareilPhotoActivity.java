@@ -214,9 +214,9 @@ public class AppareilPhotoActivity extends AppCompatActivity {
             final String photoPath = Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-"+dateActuelle+".jpg";
 
             Log.d("PATH",photoPath);
-           // final File file = new File(photoPath);
-          //  LesObjets obj = (LesObjets)getApplicationContext();
-          //  obj.setPath(photoPath);
+            final File file = new File(photoPath);
+            LesObjets obj = (LesObjets)getApplicationContext();
+            obj.setPath(photoPath);
 
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override

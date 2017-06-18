@@ -43,8 +43,7 @@
             android:layout_below="@+id/nompage"
             android:layout_marginTop="74dp"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text="@string/email" />
+            android:inputType="textEmailAddress" />
 
 
 
@@ -56,8 +55,7 @@
             android:layout_below="@+id/email"
             android:layout_marginTop="74dp"
             android:ems="10"
-            android:inputType="textPassword"
-            android:text="@string/mdp" />
+            android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/Amis"
