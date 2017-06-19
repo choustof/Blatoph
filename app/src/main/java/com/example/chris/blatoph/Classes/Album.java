@@ -6,6 +6,7 @@ package com.example.chris.blatoph.Classes;
 
 import com.example.chris.blatoph.Interfaces.Edition;
 import com.example.chris.blatoph.Exceptions.ObservateurException;
+import com.example.chris.blatoph.Classes.Utilisateur;
 
 import java.util.*;
 
@@ -56,6 +57,7 @@ public class Album extends Observable implements Edition {
         return titre;
     }
 
+
     public Date getDateCreation(){
         return dateCreation;
     }
@@ -105,8 +107,8 @@ public class Album extends Observable implements Edition {
      * Ici on a decide de retourner l'utilisateur entierement, pour avoir le plus d'information possible
      * Cependant il n'est peut-etre pas necessaire de le retourner entierement dans tous les cas
      */
-    public Utilisateur getCreateur(){
-        return createur;
+    public String getCreateur(){
+        return this.createur.getPrenom();
     }
 
     /*

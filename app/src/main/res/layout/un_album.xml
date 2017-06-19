@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/titre_album"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="Titre de l'album"
+        android:textSize="26sp"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/nom_createur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="Créateur de l'album"
+        android:textSize="26sp"
+        android:layout_above="@+id/titre_photo">
+    </TextView>
+
+</LinearLayout>

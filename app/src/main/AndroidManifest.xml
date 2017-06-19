@@ -27,7 +27,7 @@
         android:largeHeap="true"
         android:name=".LesObjets"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.AppareilPhotoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,11 +37,11 @@
 
 
         <activity android:name=".Activities.CreationCompteActivity"/>
-        <activity android:name=".Activities.AppareilPhotoActivity"/>
+
         <activity android:name=".Activities.UtilisateurActivity"/>
         <activity android:name=".Activities.AmisActivity"/>
         <activity android:name=".Activities.ParamPhotoActivity"/>
-        <activity android:name=".Activities.ListeAlbumActivitiy"/>
+        <activity android:name=".Activities.ListeAlbumActivity"/>
         <activity android:name=".Activities.ListePhotoActivity"/>
 
 

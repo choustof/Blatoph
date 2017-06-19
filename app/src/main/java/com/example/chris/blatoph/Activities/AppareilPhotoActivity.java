@@ -99,7 +99,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         boutonListeAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ListeAlbumActivitiy.class);
+                Intent intent = new Intent(getApplicationContext(), ListeAlbumActivity.class);
                 startActivity(intent);
             }
         })
