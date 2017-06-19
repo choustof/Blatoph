@@ -33,6 +33,7 @@ public class Photo  implements Edition,Comparable<Photo>{
      */
     public Photo(String titre, String legende, String image){
         this.titre = titre;
+        this.legende=legende;
         this.image = image;
         dateCreation = new Date();
     }
@@ -81,6 +82,10 @@ public class Photo  implements Edition,Comparable<Photo>{
 
     public String getTitre(){
         return titre;
+    }
+
+    public String getLegende(){
+        return legende;
     }
 
     public Bitmap getImage(){

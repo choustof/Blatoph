@@ -4,9 +4,11 @@ package com.example.chris.blatoph.Classes;
  * Created by Sarah Pierson on 23/03/2017.
  */
 
+import android.graphics.Bitmap;
+
 import com.example.chris.blatoph.Interfaces.Edition;
 import com.example.chris.blatoph.Exceptions.ObservateurException;
-import com.example.chris.blatoph.Classes.Utilisateur;
+import com.example.chris.blatoph.Classes.Photo;
 
 import java.util.*;
 
@@ -17,9 +19,10 @@ public class Album extends Observable implements Edition {
 
 
     private ArrayList<Photo> listePhotos;
+    private ArrayList<Utilisateur> listeObservateur;
     private Utilisateur createur;
     private Date dateCreation;
-    private Boolean albumCourant;
+    public Boolean albumCourant;
 
 	/*
 	 * Le constructeur prend en parametre le nom du createur de l'album car
@@ -32,6 +35,7 @@ public class Album extends Observable implements Edition {
         this.createur = createur;
         dateCreation = new Date();
         listePhotos = new ArrayList<Photo>();
+        listeObservateur = new ArrayList<Utilisateur>();
         this.albumCourant=false;
     }
 
@@ -62,6 +66,14 @@ public class Album extends Observable implements Edition {
         return dateCreation;
     }
 
+    public Boolean getAlbumCourant(){
+        return albumCourant;
+    }
+
+    public String dateCreation(){
+        return dateCreation.toString();
+    }
+
     /*
      * Methode ajouterPhoto
      * Methode qui permet d'ajouter une nouvelle photo a l'album
@@ -69,17 +81,13 @@ public class Album extends Observable implements Edition {
      */
     public boolean ajouterPhoto(Photo photo){
 
-        setChanged();
-        notifyObservers(photo);
+       /* setChanged();
+        notifyObservers(photo); */
         listePhotos.add(photo);
         return true;
     }
 
-    public boolean suprimerPhoto (Photo photo){
-        listePhotos.remove(photo);
-        return true;
 
-    }
 
     /*
      * Methode ajouterObservateur
@@ -94,7 +102,7 @@ public class Album extends Observable implements Edition {
         if(u.equals(createur)){
             throw new ObservateurException("Cet utilisateur est le créateur de l'album");
         }
-        addObserver(u);
+        listeObservateur.add(u);
 
         infos = u.getPrenom()+ " a été ajouté aux observateurs de l'album";
 
@@ -155,7 +163,9 @@ public class Album extends Observable implements Edition {
         return true;
     }
 
-
+    public Photo afficherPhoto(){
+         return listePhotos.get(0);
+    }
 
 
 }
