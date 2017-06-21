@@ -4,29 +4,28 @@ package com.example.chris.blatoph.Classes;
 import com.example.chris.blatoph.Exceptions.AjoutAlbumException;
 import com.example.chris.blatoph.Exceptions.AlbumInconnuException;
 import com.example.chris.blatoph.Exceptions.AmiInconnuException;
+import com.example.chris.blatoph.Classes.Album;
 
 import java.util.*;
 
 
-public class Utilisateur implements Observer{
+public class Utilisateur{
 
-    private String nom,prenom,adresseMail,motDePasse;
-    private TreeMap <String,Album> listeAlbums, listeAlbumsSuivis;
+    private String prenom,adresseMail,motDePasse;
+    private TreeMap <Boolean,Album> listeAlbums;
     private TreeMap <String,Utilisateur> listeAmis;
 
 
 	/*
 	 * Constructeur d'un utilisateur
-	 * @params nom, prenom, adresseMail, motdePasse
+	 * @params  prenom, adresseMail, motdePasse
 	 */
 
-    public Utilisateur(String nom, String prenom,String adresseMail,String motDePasse){
-        this.nom = nom;
+    public Utilisateur(String prenom  ,String adresseMail,String motDePasse){
         this.prenom = prenom;
         this.adresseMail = adresseMail;
         this.motDePasse = motDePasse;
-        listeAlbums = new TreeMap <String,Album>();
-        listeAlbumsSuivis = new TreeMap<String,Album>();
+        listeAlbums = new TreeMap <Boolean, Album>();
         listeAmis = new TreeMap <String,Utilisateur>();
     }
 	/*
@@ -56,20 +55,13 @@ public class Utilisateur implements Observer{
         return motDePasse;
     }
 
-	/*
-	 * Methode getNom
-	 * @return Le Nom sous forme de chaine de caractere
-	 */
 
-    public String getNom(){
-        return nom;
-    }
 
     /*
      * Methode getAlbums
      * @return Une liste des albums d'un utilisateur, avec pour clef le nom de l'album
      */
-    public TreeMap<String,Album> getAlbums(){
+    public TreeMap<Boolean,Album> getAlbums(){
 
         return listeAlbums;
     }
@@ -86,11 +78,6 @@ public class Utilisateur implements Observer{
             infos += album.getTitre()+"\n";
         }
 
-        infos += "\nAlbums de mes amis: \n";
-        elements= listeAlbumsSuivis.values();
-        for(Album album : elements){
-            infos += album.getTitre()+"\n";
-        }
         return infos;
     }
 
@@ -115,18 +102,11 @@ public class Utilisateur implements Observer{
      */
     public void nouvelAlbum(Album album) throws AjoutAlbumException {
 
-        if(album.getCreateur().equals(this)){
-            if(listeAlbums.put(album.getTitre(),album) == null){
-                throw new AjoutAlbumException("Probleme lors de l'ajout de l'album");
-            }
-        }
-        else{
-            if(listeAlbumsSuivis.put(album.getTitre(),album) == null){
+            if(listeAlbums.put(album.getAlbumCourant(),album) == null){
                 throw new AjoutAlbumException("Probleme lors de l'ajout de l'album");
             }
         }
 
-    }
 
     /*
      * Methode supprimerAlbum
@@ -173,18 +153,6 @@ public class Utilisateur implements Observer{
         return true;
     }
 
-    /*
-     * Cette methode est utilisée dès qu'un changement s'efectue sur l'élément observé
-     * (non-Javadoc)
-     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-     *
-     */
-    public void update(Observable obs, Object o) {
-
-        if((obs instanceof Album) && (o instanceof Photo)){
-            System.out.println("Nouvelle Photo");
-        }
-    }
 	/*
 	 * Methode getListeAmis
 	 * Cette merthode retourne la liste des amis de l'utilisateurs, repérés par leur nom
@@ -217,15 +185,46 @@ public class Utilisateur implements Observer{
 
     public String toString(){
         String infos;
-        infos = nom+" "+prenom+" "+adresseMail+" "+motDePasse;
+        infos = prenom+" "+prenom+" "+adresseMail+" "+motDePasse;
         return infos;
     }
+
+    public void setPrenom(String prenom){
+        this.prenom=prenom;
+    }
+
+
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
 
-    public void prendrePhoto(String image,String titre, Date date){}
-    public void partagerAlbum(ArrayList<Utilisateur> amis, Album album){}
-    public void addAlbum(Album album){}
+    public void prendrePhoto(String image,String titre, String legende){
+        Photo photo = new Photo(titre,legende,image);
+        Iterator<String> it = listeAlbums.iterator();
+        for (String s : listeAlbums) {
+
+        }
+    }
+    public void partagerAlbum(ArrayList<Utilisateur> amis, Album album) throws AmiInconnuException {
+        for (Utilisateur s : amis)
+            if (listeAmis.containsKey(s.prenom)) {
+                album.ajouterObservateur(s);
+                s.addAlbum(album);
+
+            else{
+            throw new AmiInconnuException(nom+" ne fait pas parti de vos amis");
+        };
+    }}
+
+
+
+    public void addAlbum(String titre){
+        Album nouvelalbum= new Album(titre, this);
+        listeAlbums.put(true, nouvelalbum);
+    }
+
+    public void addAlbim(Album albumpartage){
+        listeAlbums.put(false, albumpartage);
+    }
 }
