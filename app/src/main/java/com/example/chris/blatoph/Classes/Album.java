@@ -90,33 +90,13 @@ public class Album extends Observable implements Edition {
 
 
     /*
-     * Methode ajouterObservateur
-     * Cette methode qui permet de definir les utilisateurs qui ont acces a l'album pour le visionner
-     * @exception ObservateurException
-     * @params u
-     * @return indique le nom de la nouvelle personne avec qui l'album a ete paratage
-     */
-    public String ajouterObservateur(Utilisateur u) throws ObservateurException {
-
-        String infos = "";
-        if(u.equals(createur)){
-            throw new ObservateurException("Cet utilisateur est le créateur de l'album");
-        }
-        listeObservateur.add(u);
-
-        infos = u.getPrenom()+ " a été ajouté aux observateurs de l'album";
-
-        return infos;
-    }
-
-    /*
      * Methode getCreateur
      * Methode qui permet de retourner les infos concernant le createur de l'album
      * Ici on a decide de retourner l'utilisateur entierement, pour avoir le plus d'information possible
      * Cependant il n'est peut-etre pas necessaire de le retourner entierement dans tous les cas
      */
-    public String getCreateur(){
-        return this.createur.getPrenom();
+    public Utilisateur getCreateur(){
+        return this.createur;
     }
 
     /*
@@ -142,7 +122,7 @@ public class Album extends Observable implements Edition {
     public String getInfos(){
 
         String infos;
-        infos = titre+ " - Cet album a été créé le "+dateCreation+" par "+createur.getPrenom()+" "+createur.getNom()+"\n";
+        infos = titre+ " - Cet album a été créé le "+dateCreation+" par "+createur.getPrenom()+"\n";
         for(int i = 0; i<listePhotos.size();i++){
             infos += listePhotos.get(i)+"\n";
         }

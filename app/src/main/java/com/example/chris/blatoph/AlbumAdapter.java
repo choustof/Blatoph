@@ -46,7 +46,7 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
 
         Album album = getItem(position);
         viewHolder.titre.setText(album.getTitre());
-        viewHolder.createur.setText(album.getCreateur());
+        viewHolder.createur.setText(album.getCreateur().getPrenom());
 
         return convertView;
     }

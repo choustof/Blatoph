@@ -34,7 +34,7 @@ public class ListeAlbumActivity extends AppCompatActivity {
 
         private List<Album> genererAlbum(){
             List<Album> albums = new ArrayList<Album>();
-            Utilisateur moi = new Utilisateur("Blatoph","Team","onestla@gmail.com","motdepasse");
+            Utilisateur moi = new Utilisateur("Blatoph","onestla@gmail.com","motdepasse");
 
             Log.d("PATH", Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg");
 

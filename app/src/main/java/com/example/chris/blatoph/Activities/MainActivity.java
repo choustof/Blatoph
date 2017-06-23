@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 String url = "http://192.168.43.53/blatoph-server/web/utilisateurs/"+
                         username+"/"+password;
 
-                if(false){
+                if(true){
                     openCamera();
                 }else {
                     try {

@@ -22,6 +22,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 /**
  * Created by chris on 19/05/2017.
@@ -36,11 +43,7 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
         switch (params[0]){
             case "GET": myBitmap = getBitmapFromURL("http://192.168.43.53/blatoph-server/web/images/"+params[1]);
                 break;
-            case "POST": requetePost("http://192.168.0.34/blatoph-server/web/photos","");
-                break;
-            case "PUT": requetePut(params[1], params[2]);
-                break;
-            case "DELETE": requeteDelete(params[1]);
+            case "POST": requetePost("http://192.168.43.53/blatoph-server/web/photos");
                 break;
             default:
                 break;
@@ -97,10 +100,46 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
         return lejson;
     }
 
-    public JSONArray requetePost(String url, String body){
+    public void requetePost(String url){
+
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+
+        File image = new File(Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg");
+
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("image", "blatoph-2017-06-03-15-40-17.jpg", RequestBody.create(MEDIA_TYPE_PNG, image))
+                .addFormDataPart("titre","MDR")
+                .addFormDataPart("date_creation","Hier")
+                .addFormDataPart("legende","L legende")
+                .addFormDataPart("alb_id","1")
+                .addFormDataPart("uti_id","2")
+                .build();
+
+        Request request = new Request.Builder().url(url)
+                .post(requestBody).build();
+
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (!response.isSuccessful()) {
+            try {
+                throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+   /* public JSONArray requetePost(String url, String body){
 
         Log.d("Reponse POST", "On est dans le post");
-        InputStream response = null;
+        DataInputStream response = null;
+        InputStream serveurResponse = null;
         String reponse = null;
         HttpURLConnection connection = null;
         URL obj = null;
@@ -124,30 +163,25 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             connection = (HttpURLConnection) obj.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);
-            connection.setUseCaches(false);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Connection","Keep-Alive");
-            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
-            connection.setRequestProperty("postman-token", "578b9894-723f-743b-d469-ac41a73de2f4");
+            connection.setRequestProperty("Connection","keep-alive");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
+            connection.setRequestProperty("Accept-Encoding", "gzip, deflate, br ");
+            connection.setRequestProperty("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4");
+            connection.setRequestProperty("Cache-Control","no-cache");
+
 
             Log.d("Reponse POST", lineEnd);
 
             dos = new DataOutputStream(connection.getOutputStream());
             Log.d("Reponse POST", "On est la");
-            dos.writeBytes(twoHyphens+boundary+lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\""+ Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"+"\""+lineEnd);
-            dos.writeBytes(twoHyphens+boundary+lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\\\"titre\\\"\\r\\n\\r\\nMDR"+lineEnd);
-            dos.writeBytes(twoHyphens+boundary+lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\\\"legende\\\"\\r\\n\\r\\nLOL"+lineEnd);
-            dos.writeBytes(twoHyphens+boundary+lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\\\"date_creation\\\"\\r\\n\\r\\nhier"+lineEnd);
-            dos.writeBytes(twoHyphens+boundary+lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\\\"alb_id\\\"\\r\\n\\r\\n1"+lineEnd);
-            dos.writeBytes(twoHyphens+boundary+lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\\\"uti_id\\\"\\r\\n\\r\\n1"+lineEnd);
-            dos.writeBytes(lineEnd);
 
+            Log.d("LA REPONSE", "Content-Disposition: form-data; name=\"titre\"\r\n\r\nMDR"+lineEnd);
+
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+            dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"" + "blatoph-2017-06-03-15-40-17.jpg" + "\"" + lineEnd); // uploaded_file_name is the Name of the File to be uploaded
+            dos.writeBytes(lineEnd);
 
             bytesAvailable = fileInputStream.available();
             bufferSize = Math.min(bytesAvailable,maxBufferSize);
@@ -167,10 +201,24 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             dos.flush();
             dos.close();
 
+            try {
+                response = new DataInputStream ( connection.getInputStream() );
+                String str;
+                while (( str = response.readLine()) != null){
+                    Log.e("Debug","Server Response "+str);
+                }
+                response.close();
+            }
+            catch (IOException ioex){
+                Log.e("Debug", "error: " + ioex.getMessage(), ioex);
+            }
+
             codeReponse = connection.getResponseCode();
 
             Log.d("Reponse POST", ""+codeReponse);
-            response = new URL(url).openStream();
+
+
+            serveurResponse = new URL(url).openStream();
 
            // Log.d("Reponse POST", reponse);
 
@@ -181,7 +229,7 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             e.printStackTrace();
         }
 
-        try (Scanner scanner = new Scanner(response)) {
+        try (Scanner scanner = new Scanner(serveurResponse)) {
             reponse = scanner.useDelimiter("\\A").next();
         }
 
@@ -194,89 +242,8 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             Log.d("Requete", e.getMessage());
         }
         return lejson;
-    }
+    }*/
 
-    public JSONArray requetePut(String url, String body){
-
-        InputStream response = null;
-        String reponse = null;
-        HttpURLConnection connection = null;
-        URL obj = null;
-        int codeReponse = 0;
-        JSONArray lejson = new JSONArray();
-
-        JSONObject reponseJson = new JSONObject();
-        try {
-            obj = new URL(url);
-            connection = (HttpURLConnection) obj.openConnection();
-            connection.setRequestMethod("PUT");
-            connection.setRequestProperty("Accept-Charset", "UTF-8");
-            connection.setRequestProperty("Content-Type", "application/json");
-
-            OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
-            wr.write(body);
-            wr.flush();
-
-            codeReponse = connection.getResponseCode();
-            response = new URL(url).openStream();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (Scanner scanner = new Scanner(response)) {
-            reponse = scanner.useDelimiter("\\A").next();
-        }
-
-        try {
-            lejson = new JSONArray(reponse);
-            reponseJson.put("code",codeReponse);
-
-            lejson.put(reponseJson);
-        } catch (JSONException e) {
-            Log.d("Requete", e.getMessage());
-        }
-        return lejson;
-    }
-
-    public JSONArray requeteDelete(String url){
-
-        InputStream response = null;
-        String reponse = null;
-        HttpURLConnection connection = null;
-        URL obj = null;
-        int codeReponse = 0;
-        JSONArray lejson = new JSONArray();
-
-        JSONObject reponseJson = new JSONObject();
-        try {
-            obj = new URL(url);
-            connection = (HttpURLConnection) obj.openConnection();
-            connection.setRequestMethod("DELETE");
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.connect();
-            codeReponse = connection.getResponseCode();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            lejson = new JSONArray();
-            reponseJson.put("code",codeReponse);
-
-            lejson.put(reponseJson);
-        } catch (JSONException e) {
-            Log.d("Requete", e.getMessage());
-        }
-        return lejson;
-    }
 
     public static Bitmap getBitmapFromURL(String src) {
         try {
@@ -292,5 +259,6 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             return null;
         }
     }
+
 
 }

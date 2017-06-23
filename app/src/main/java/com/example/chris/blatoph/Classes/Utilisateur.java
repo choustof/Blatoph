@@ -5,6 +5,7 @@ import com.example.chris.blatoph.Exceptions.AjoutAlbumException;
 import com.example.chris.blatoph.Exceptions.AlbumInconnuException;
 import com.example.chris.blatoph.Exceptions.AmiInconnuException;
 import com.example.chris.blatoph.Classes.Album;
+import com.example.chris.blatoph.Exceptions.ObservateurException;
 
 import java.util.*;
 
@@ -12,7 +13,7 @@ import java.util.*;
 public class Utilisateur{
 
     private String prenom,adresseMail,motDePasse;
-    private TreeMap <Boolean,Album> listeAlbums;
+    private TreeMap <String,Album> listeAlbums;
     private TreeMap <String,Utilisateur> listeAmis;
 
 
@@ -25,7 +26,7 @@ public class Utilisateur{
         this.prenom = prenom;
         this.adresseMail = adresseMail;
         this.motDePasse = motDePasse;
-        listeAlbums = new TreeMap <Boolean, Album>();
+        listeAlbums = new TreeMap <String, Album>();
         listeAmis = new TreeMap <String,Utilisateur>();
     }
 	/*
@@ -61,7 +62,7 @@ public class Utilisateur{
      * Methode getAlbums
      * @return Une liste des albums d'un utilisateur, avec pour clef le nom de l'album
      */
-    public TreeMap<Boolean,Album> getAlbums(){
+    public TreeMap<String,Album> getAlbums(){
 
         return listeAlbums;
     }
@@ -100,9 +101,9 @@ public class Utilisateur{
      * @params album
      * @exception AjoutAlbumException
      */
-    public void nouvelAlbum(Album album) throws AjoutAlbumException {
+    public void nouvelAlbum(String id, Album album) throws AjoutAlbumException {
 
-            if(listeAlbums.put(album.getAlbumCourant(),album) == null){
+            if(listeAlbums.put(id,album) == null){
                 throw new AjoutAlbumException("Probleme lors de l'ajout de l'album");
             }
         }
@@ -190,41 +191,32 @@ public class Utilisateur{
     }
 
     public void setPrenom(String prenom){
-        this.prenom=prenom;
+        this.prenom = prenom;
     }
-
-
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
 
-    public void prendrePhoto(String image,String titre, String legende){
+    public void prendrePhoto(String image,String titre, String legende, String album){
         Photo photo = new Photo(titre,legende,image);
-        Iterator<String> it = listeAlbums.iterator();
-        for (String s : listeAlbums) {
-
-        }
+        listeAlbums.get(album).ajouterPhoto(photo);
+        //Requete
     }
+
     public void partagerAlbum(ArrayList<Utilisateur> amis, Album album) throws AmiInconnuException {
-        for (Utilisateur s : amis)
+        for (Utilisateur s : amis){
             if (listeAmis.containsKey(s.prenom)) {
-                album.ajouterObservateur(s);
-                s.addAlbum(album);
+                    //Requete
 
-            else{
-            throw new AmiInconnuException(nom+" ne fait pas parti de vos amis");
+            }
+            else {
+                throw new AmiInconnuException(" ne fait pas parti de vos amis");
+            }
         };
-    }}
-
-
-
-    public void addAlbum(String titre){
-        Album nouvelalbum= new Album(titre, this);
-        listeAlbums.put(true, nouvelalbum);
     }
 
-    public void addAlbim(Album albumpartage){
-        listeAlbums.put(false, albumpartage);
+    public void addAlbum(String id,Album albumpartage){
+        listeAlbums.put(id, albumpartage);
     }
 }
