@@ -72,6 +72,9 @@ public class Album extends Observable implements Edition {
 
     public boolean supprimer(){ return true; }
 
+    public String getId(){
+        return id;
+    }
     /*
      * Methode getNom
      * Methode qui retourne le nom de l'albuù

@@ -8,6 +8,7 @@ import com.example.chris.blatoph.Classes.Photo;
 import com.example.chris.blatoph.Classes.Utilisateur;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chris on 15/06/2017.
@@ -46,8 +47,8 @@ public class LesObjets extends Application {
         this.photos = photos;
     }
 
-    public void setAlbums(ArrayList<Album> albums) {
-        this.albums = albums;
+    public void setAlbums(List<Album> albums) {
+        this.albums = (ArrayList<Album>)albums;
     }
 
     public void setUtilisateur(Utilisateur utilisateur) {

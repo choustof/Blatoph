@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -22,6 +23,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 /**
  * Created by Sarah Pierson on 08/06/2017.
@@ -57,8 +60,16 @@ public class ListeAlbumActivity extends AppCompatActivity {
             url2 = obj.getUrl()+"utilisateurs/"+obj.getUtilisateur().getId()+"albumPartages";
 
             mListView = (ListView) findViewById(R.id.listView_album);
-
             afficherListeAlbum();
+
+
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view,int position, long id)
+                {
+                    Intent intent = new Intent(getApplicationContext(), ListePhotoActivity.class);
+                    intent.putExtra("ALB_ID",position);
+                    startActivity(intent);
+                }});
         }
 
         private List<Album> genererAlbum(){
@@ -82,7 +93,9 @@ public class ListeAlbumActivity extends AppCompatActivity {
 
             Log.d("PATH", Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg");
 */
+
             List<Album> albums = new ArrayList<Album>(obj.getUtilisateur().getAlbums().values());
+            obj.setAlbums(albums);
 
             return albums;
         }

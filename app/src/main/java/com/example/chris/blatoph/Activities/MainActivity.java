@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         obj = (LesObjets)getApplicationContext();
 
         //A remplacer selon le serveur
-        obj.setUrl("http://192.168.0.25/blatoph-server/web/");
+        obj.setUrl("http://192.168.0.34/blatoph-server/web/");
 
         /*Creation du dossier de stockage des fichiers de l'application*/
         File mydir = new File(Environment.getExternalStorageDirectory() + "/Blatoph/");

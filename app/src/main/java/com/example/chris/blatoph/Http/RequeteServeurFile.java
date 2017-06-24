@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import com.example.chris.blatoph.LesObjets;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,12 +38,15 @@ import okhttp3.Response;
 
 public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
 
+
+    LesObjets obj;
+
     protected Bitmap doInBackground(String ...params) {
 
         Bitmap myBitmap = null;
         Log.d("Reponse POST", params[0]);
         switch (params[0]){
-            case "GET": myBitmap = getBitmapFromURL("http://192.168.43.53/blatoph-server/web/images/"+params[1]);
+            case "GET": myBitmap = getBitmapFromURL(params[1]);
                 break;
             case "POST": requetePost(params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
                 break;
@@ -256,6 +261,7 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            Log.d("SOurce","src");
             return myBitmap;
         } catch (IOException e) {
             // Log exception

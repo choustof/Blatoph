@@ -24,14 +24,24 @@ public class Photo  implements Edition,Comparable<Photo>{
 
     private String titre, legende;
     private Date dateCreation;
-    private String image;
+    private Bitmap image;
+    private String path;
+
+    private String id;
 
     /*
      * Constructeur d'une photo, avec un parametrage au niveau des dimensions, du type
      * et du titre de la photo
      * @params width, height, imageType, titre
      */
-    public Photo(String titre, String legende, String image){
+    public Photo(String titre, String legende, String path){
+        this.titre = titre;
+        this.legende=legende;
+        this.path = path;
+        dateCreation = new Date();
+    }
+
+    public Photo(String id, String titre, String legende, Bitmap image){
         this.titre = titre;
         this.legende=legende;
         this.image = image;
@@ -90,12 +100,14 @@ public class Photo  implements Edition,Comparable<Photo>{
 
     public Bitmap getImage(){
 
+        /*
         File image = new File(this.image);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
         bitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth(),bitmap.getHeight(),true);
+*/
 
-        return bitmap;
+        return image;
     }
     /*
      *

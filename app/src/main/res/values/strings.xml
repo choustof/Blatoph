@@ -27,5 +27,6 @@
     <string name="creer_album">Créer nouvel album</string>
     <string name="amis_album">Partager avec Amis</string>
     <string name="amis_partage">Amis pour partage</string>
+    <string name="titre_album">Titre de l\'album</string>
 
 </resources>
