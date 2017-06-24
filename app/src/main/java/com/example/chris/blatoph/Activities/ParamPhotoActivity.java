@@ -11,8 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.chris.blatoph.Classes.Photo;
+import com.example.chris.blatoph.Http.RequeteServeurFile;
 import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Sarah Pierson on 08/06/2017.
@@ -43,10 +50,34 @@ public class ParamPhotoActivity extends AppCompatActivity {
         Log.d("LE PATH", obj.getPath());
 
 
+        final String url = obj.getUrl() + "photos";
+        final String path = obj.getPath();
+        final String albumCourantId = obj.getUtilisateur().getAlbumCourantId();
+        final String utilisateurId = obj.getUtilisateur().getId();
 
         final Button button = (Button) findViewById(R.id.ajouter);
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
+
+                                          /*Photo p = new Photo(titre.getText().toString(),legende.getText().toString(),"");
+                                          JSONObject photoJson = new JSONObject();
+                                          try {
+                                              photoJson.put("titre",p.getTitre());
+                                              album.put("date_creation","08-89");
+                                              album.put("uti_id",1);
+                                          } catch (JSONException e) {
+                                              e.printStackTrace();
+                                          }*/
+
+                                          RequeteServeurFile requeteFile = new RequeteServeurFile();
+                                          try {
+                                              requeteFile.execute("POST", url,path, titre.getText().toString(), legende.getText().toString(), new Date().toString(), albumCourantId, utilisateurId ).get();
+                                          } catch (InterruptedException e) {
+                                              e.printStackTrace();
+                                          } catch (ExecutionException e) {
+                                              e.printStackTrace();
+                                          }
+
                                           Intent intent = new Intent(getApplicationContext(), AppareilPhotoActivity.class);
                                           startActivity(intent);
                                       }

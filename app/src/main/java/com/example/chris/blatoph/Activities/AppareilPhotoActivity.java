@@ -24,6 +24,8 @@ import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by chris on 03/03/2017.
  *
@@ -67,7 +69,20 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         boutonPrendrePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePicture();
+
+                Thread thread = new Thread(){
+                    public void run(){
+                        takePicture();
+                    }
+                };
+
+                thread.start();
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent(getApplicationContext(), ParamPhotoActivity.class);
                 startActivity(intent);
             }

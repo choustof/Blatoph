@@ -43,7 +43,7 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
         switch (params[0]){
             case "GET": myBitmap = getBitmapFromURL("http://192.168.43.53/blatoph-server/web/images/"+params[1]);
                 break;
-            case "POST": requetePost("http://192.168.43.53/blatoph-server/web/photos");
+            case "POST": requetePost(params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
                 break;
             default:
                 break;
@@ -100,21 +100,24 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
         return lejson;
     }
 
-    public void requetePost(String url){
+    public void requetePost(String url, String path, String titre, String legende,String date, String albumCourantId, String utilisateurId){
+
 
         OkHttpClient client = new OkHttpClient();
 
         MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
-        File image = new File(Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg");
+        File image = new File(path);
+        Log.d("Valeurs",image.getName() );
+
 
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("image", "blatoph-2017-06-03-15-40-17.jpg", RequestBody.create(MEDIA_TYPE_PNG, image))
-                .addFormDataPart("titre","MDR")
-                .addFormDataPart("date_creation","Hier")
-                .addFormDataPart("legende","L legende")
+                .addFormDataPart("image", image.getName(), RequestBody.create(MEDIA_TYPE_PNG, image))
+                .addFormDataPart("titre",titre)
+                .addFormDataPart("date_creation",date)
+                .addFormDataPart("legende",legende)
                 .addFormDataPart("alb_id","1")
-                .addFormDataPart("uti_id","2")
+                .addFormDataPart("uti_id",utilisateurId)
                 .build();
 
         Request request = new Request.Builder().url(url)

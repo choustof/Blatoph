@@ -13,7 +13,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.chris.blatoph.Classes.Album;
+import com.example.chris.blatoph.Classes.Utilisateur;
 import com.example.chris.blatoph.Http.*;
+import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
 
 import org.json.JSONArray;
@@ -25,8 +28,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String photoPath;
     Resources res;
+    LesObjets obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Permet de récupérer les données stockées dans le dossier des ressources
         res = this.getResources();
+
+        obj = (LesObjets)getApplicationContext();
+
+        //A remplacer selon le serveur
+        obj.setUrl("http://192.168.0.34/blatoph-server/web/");
 
         /*Creation du dossier de stockage des fichiers de l'application*/
         File mydir = new File(Environment.getExternalStorageDirectory() + "/Blatoph/");
@@ -66,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         RequeteServeur requete = new RequeteServeur();
         String reponse = null;
         try {
-            reponse = requete.execute("POST","http://192.168.0.34/blatoph-server/web/albums",album.toString()).get();
+            reponse = requete.execute("POST",obj.getUrl()+"albums",album.toString()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -102,29 +110,28 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                RequeteServeur requete = new RequeteServeur();
-                RequeteServeurFile requeteFile = new RequeteServeurFile();
                 JSONArray reponse = null;
                 JSONObject id = null;
                 JSONObject code = null;
                 String username = email.getText().toString();
                 String password = mdp.getText().toString();
 
-                String url = "http://192.168.43.53/blatoph-server/web/utilisateurs/"+
-                        username+"/"+password;
+                if(!username.isEmpty() && !password.isEmpty()) {
+                    RequeteServeur requete = new RequeteServeur();
+                    //RequeteServeurFile requeteFile = new RequeteServeurFile();
 
-                if(true){
-                    openCamera();
-                }else {
+                    String url = obj.getUrl() + "utilisateurs/" +
+                            username + "/" + password;
                     try {
-                        requeteFile.execute("POST", url, "");
-                       // reponse = requete.execute("GET", url, "").get();
-                       // Log.d("Requete", "La reponse : " + reponse.toString());
+                        //requeteFile.execute("POST", url, "");
+                        reponse = requete.execute("GET", url).get();
+                        Log.d("Requete",reponse.toString());
 
-                       // id = reponse.getJSONObject(0);
-                        //code = reponse.getJSONObject(1);
+                        id = reponse.getJSONObject(0);
+                        code = reponse.getJSONObject(1);
+                        Log.d("Requete", "The id is " + code.get("code").toString());
 
-                        if (false) {
+                        if (code.getString("code").equals("200")) {
                             importationDonneesUtilisateur(id.getString("id"));
                             if (appareilPhotoExiste(MainActivity.this)) {
                                 openCamera();
@@ -138,13 +145,16 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    } /*catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
-                    }*/
+                    }
+                }
+                else{
 
                 }
+
             }
         });
 
@@ -182,15 +192,49 @@ public class MainActivity extends AppCompatActivity {
     protected void importationDonneesUtilisateur(String id){
 
         Log.d("Requete","The id is "+id);
-    }
+        RequeteServeur requete = new RequeteServeur();
+        JSONArray reponse = null;
+        JSONObject nom = null;
 
-    public String getPhotoPath(){
-        return photoPath;
-    }
+        String url = obj.getUrl() + "utilisateurs/" +id;
 
-    public void setPhotoPath(String newPath){
-        photoPath = newPath;
-    }
+        try {
 
+            //Recupération des données utilisateur
+            reponse = requete.execute("GET", url).get();
+            Log.d("Requete lol",reponse.toString());
+
+            obj.setUtilisateur(new Utilisateur(
+                    reponse.getJSONObject(0).get("id").toString(),
+                    reponse.getJSONObject(0).get("nom").toString(),
+                    reponse.getJSONObject(0).get("email").toString(),
+                    reponse.getJSONObject(0).get("motDePass").toString(),
+                    reponse.getJSONObject(0).get("albumCourantId").toString()
+            ));
+
+            //Recupération des albums
+            url = obj.getUrl() + "utilisateurs/" +id+"/albums";
+            reponse = new RequeteServeur().execute("GET", url).get();
+            reponse.remove(reponse.length()-1);
+
+            for (int i = 0; i < reponse.length(); i++) {
+                JSONObject album = reponse.getJSONObject(i);
+                obj.getUtilisateur().addAlbum(album.get("id").toString(),new Album(
+                    album.get("id").toString(),
+                    album.get("titre").toString(),
+                    album.get("date_creation").toString(),
+                    album.get("uti_id").toString()
+                    ));
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

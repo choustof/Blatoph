@@ -5,6 +5,7 @@ package com.example.chris.blatoph.Classes;
  */
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.example.chris.blatoph.Interfaces.Edition;
 import com.example.chris.blatoph.Exceptions.ObservateurException;
@@ -23,6 +24,7 @@ public class Album extends Observable implements Edition {
     private Utilisateur createur;
     private Date dateCreation;
     public Boolean albumCourant;
+    private String id;
 
 	/*
 	 * Le constructeur prend en parametre le nom du createur de l'album car
@@ -37,6 +39,23 @@ public class Album extends Observable implements Edition {
         listePhotos = new ArrayList<Photo>();
         listeObservateur = new ArrayList<Utilisateur>();
         this.albumCourant=false;
+    }
+
+    /*
+	 * Le constructeur prend en parametre le nom du createur de l'album car
+	 * ceux-ci sont voues a etre partages
+	 */
+
+    public Album(String id, String titre, String dateCreation, String createur){
+
+        Log.d("Album id ",id);
+        this.id = id;
+        this.titre = titre;
+        this.dateCreation = new Date();
+        listePhotos = new ArrayList<Photo>();
+        listeObservateur = new ArrayList<Utilisateur>();
+        this.albumCourant=false;
+        this.createur= new Utilisateur(createur);
     }
 
 	/*
@@ -81,8 +100,6 @@ public class Album extends Observable implements Edition {
      */
     public boolean ajouterPhoto(Photo photo){
 
-       /* setChanged();
-        notifyObservers(photo); */
         listePhotos.add(photo);
         return true;
     }
@@ -95,7 +112,7 @@ public class Album extends Observable implements Edition {
      * Ici on a decide de retourner l'utilisateur entierement, pour avoir le plus d'information possible
      * Cependant il n'est peut-etre pas necessaire de le retourner entierement dans tous les cas
      */
-    public Utilisateur getCreateur(){
+    public Utilisateur  getCreateur(){
         return this.createur;
     }
 

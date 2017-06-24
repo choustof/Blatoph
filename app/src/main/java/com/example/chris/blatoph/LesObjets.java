@@ -18,10 +18,18 @@ public class LesObjets extends Application {
     private ArrayList<Photo> photos;
     private ArrayList<Album> albums;
     private Utilisateur utilisateur;
-    private String path;
+    private String path, url;
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+
+    public String getUrl(){
+        return url;
     }
 
     public String getPath() {

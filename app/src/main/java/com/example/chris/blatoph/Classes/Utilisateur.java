@@ -1,6 +1,8 @@
 package com.example.chris.blatoph.Classes;
 
 
+import android.util.Log;
+
 import com.example.chris.blatoph.Exceptions.AjoutAlbumException;
 import com.example.chris.blatoph.Exceptions.AlbumInconnuException;
 import com.example.chris.blatoph.Exceptions.AmiInconnuException;
@@ -13,8 +15,11 @@ import java.util.*;
 public class Utilisateur{
 
     private String prenom,adresseMail,motDePasse;
-    private TreeMap <String,Album> listeAlbums;
-    private TreeMap <String,Utilisateur> listeAmis;
+    private String id;
+    private LinkedHashMap <String,Album> listeAlbums;
+    private LinkedHashMap <String,Album> listeAlbumsPartages;
+    private LinkedHashMap <String,Utilisateur> listeAmis;
+    private String albumCourantId;
 
 
 	/*
@@ -22,12 +27,20 @@ public class Utilisateur{
 	 * @params  prenom, adresseMail, motdePasse
 	 */
 
-    public Utilisateur(String prenom  ,String adresseMail,String motDePasse){
+    public Utilisateur(String id, String prenom  ,String adresseMail,String motDePasse, String albumCourantId){
+
+        this.id = id;
         this.prenom = prenom;
         this.adresseMail = adresseMail;
         this.motDePasse = motDePasse;
-        listeAlbums = new TreeMap <String, Album>();
-        listeAmis = new TreeMap <String,Utilisateur>();
+        listeAlbums = new LinkedHashMap <String, Album>();
+        listeAlbumsPartages = new LinkedHashMap <String, Album>();
+        listeAmis = new LinkedHashMap <String,Utilisateur>();
+        this.albumCourantId = albumCourantId;
+    }
+
+    public Utilisateur(String prenom){
+        this.prenom = prenom;
     }
 	/*
 	 * Methode getPrenom
@@ -52,8 +65,19 @@ public class Utilisateur{
 	 * @return Le mot de passe sous forme de chaine de caractere
 	 */
 
+	public String getAlbumCourantId(){
+        return this.albumCourantId;
+    }
     public String getMotDePasse(){
         return motDePasse;
+    }
+
+    public String getId(){
+        return this.id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
 
@@ -62,8 +86,9 @@ public class Utilisateur{
      * Methode getAlbums
      * @return Une liste des albums d'un utilisateur, avec pour clef le nom de l'album
      */
-    public TreeMap<String,Album> getAlbums(){
+    public LinkedHashMap<String,Album> getAlbums(){
 
+        Log.d("Les albums",listeAlbums.values().toString());
         return listeAlbums;
     }
 
@@ -101,7 +126,7 @@ public class Utilisateur{
      * @params album
      * @exception AjoutAlbumException
      */
-    public void nouvelAlbum(String id, Album album) throws AjoutAlbumException {
+    public void nouvelAlbum(Album album) throws AjoutAlbumException {
 
             if(listeAlbums.put(id,album) == null){
                 throw new AjoutAlbumException("Probleme lors de l'ajout de l'album");
@@ -160,7 +185,7 @@ public class Utilisateur{
 	 * @return Une liste d'utilisateurs
 	 */
 
-    public TreeMap<String,Utilisateur> getListeAmis(){
+    public LinkedHashMap<String,Utilisateur> getListeAmis(){
         return listeAmis;
     }
 
@@ -216,7 +241,7 @@ public class Utilisateur{
         };
     }
 
-    public void addAlbum(String id,Album albumpartage){
-        listeAlbums.put(id, albumpartage);
+    public void addAlbum(String id,Album album){
+        listeAlbums.put(id, album);
     }
 }

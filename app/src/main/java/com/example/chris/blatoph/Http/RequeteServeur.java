@@ -75,19 +75,31 @@ public class RequeteServeur extends AsyncTask<String, Void, JSONArray> {
 
         try (Scanner scanner = new Scanner(response)) {
             reponse = scanner.useDelimiter("\\A").next();
-        }
-        catch(NullPointerException e){
-            e.printStackTrace();
-        }
-
-        try {
+            Log.d("La reponse", "lol"+reponse.toString());
 
             lejson = new JSONArray(reponse);
             reponseJson.put("code",codeReponse);
-
             lejson.put(reponseJson);
-        } catch (JSONException e) {
+        }
+        catch(NullPointerException e){
+            e.printStackTrace();
+            Log.d("Requete", "NULL");
+
+        }
+        catch (JSONException e) {
+
+            //Si ce n'est pas un JSON ARRAY
             Log.d("Requete", e.getMessage());
+            try {
+                reponseJson = new JSONObject(reponse);
+                lejson.put(reponseJson);
+                reponseJson = new JSONObject();
+                reponseJson.put("code",codeReponse);
+                lejson.put(reponseJson);
+
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
         }
         return lejson;
     }
