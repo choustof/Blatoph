@@ -1,9 +1,12 @@
 package com.example.chris.blatoph.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.chris.blatoph.Classes.Album;
@@ -31,9 +34,22 @@ public class ListeAlbumActivity extends AppCompatActivity {
     RequeteServeur requete = new RequeteServeur();
     LesObjets obj;
 
+
+
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.liste_album);
+
+
+            final Button nouveau = (Button) findViewById(R.id.nvx);
+            nouveau.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), CreationAlbumActivity.class);
+                    startActivity(intent);
+                }
+
+
+            });
 
             obj = (LesObjets)getApplicationContext();
 
