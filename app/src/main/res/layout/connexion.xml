@@ -31,22 +31,22 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:layout_marginBottom="54dp"
-            android:id="@+id/editText_mdp"
-            android:layout_above="@+id/bouton_connexion"
-            android:layout_alignStart="@+id/editText_email" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:layout_marginBottom="49dp"
             android:id="@+id/editText_email"
             android:layout_above="@+id/editText_mdp"
             android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:id="@+id/editText_mdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bouton_connexion"
+            android:layout_alignStart="@+id/editText_email"
+            android:layout_marginBottom="54dp"
+            android:ems="10"
+            android:inputType="textPassword" />
 
         <Button
             android:text="@string/valider"

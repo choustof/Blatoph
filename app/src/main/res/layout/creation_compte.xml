@@ -7,19 +7,6 @@
     android:layout_height="match_parent" >
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/editText_mdp2"
-        android:text="@string/confmdn"
-        android:layout_above="@+id/button_creation"
-        android:layout_alignLeft="@+id/editText_mdp"
-        android:layout_alignStart="@+id/editText_mdp"
-        android:layout_marginBottom="22dp"
-        android:textSize="18sp"/>
-
     <Button
         android:text="@string/creercompte"
         android:layout_width="wrap_content"
@@ -31,18 +18,6 @@
         android:layout_alignStart="@+id/editText_mdp2"
         android:layout_alignRight="@+id/editText_mdp2"
         android:layout_alignEnd="@+id/editText_mdp2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/editText_mdp"
-        android:text="@string/mdp"
-        android:layout_below="@+id/editText_email"
-        android:layout_alignLeft="@+id/editText_email"
-        android:layout_alignStart="@+id/editText_email"
-        android:layout_marginTop="46dp" />
 
     <TextView
         android:id="@+id/nomPage"
@@ -59,7 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/editText_nom"
         android:layout_above="@+id/editText_email"
@@ -72,7 +46,29 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editText_email"
-        android:text="@string/email"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editText_mdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_email"
+        android:layout_alignStart="@+id/editText_email"
+        android:layout_below="@+id/editText_email"
+        android:layout_marginTop="46dp"
+        android:ems="10"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editText_mdp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_creation"
+        android:layout_alignLeft="@+id/editText_mdp"
+        android:layout_alignStart="@+id/editText_mdp"
+        android:layout_marginBottom="22dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="18sp" />
 </RelativeLayout>

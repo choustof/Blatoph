@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.chris.blatoph.Classes.Album;
 import com.example.chris.blatoph.Classes.Utilisateur;
@@ -139,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
                                 button.setBackgroundColor(3);
                             }
                         } else {
-                        /*finish();
-                        startActivity(getIntent());*/
                         }
 
                     } catch (JSONException e) {
@@ -152,7 +151,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else{
-
+                    if(username.isEmpty()){
+                        Toast.makeText(MainActivity.this, "Veuillez renseigner un email", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "Veuillez renseigner un mot de passe", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }

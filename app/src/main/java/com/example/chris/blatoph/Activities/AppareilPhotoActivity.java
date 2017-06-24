@@ -57,6 +57,8 @@ public class AppareilPhotoActivity extends AppCompatActivity {
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
     private int idAppareil = 0;
+
+    LesObjets obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,25 +68,35 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         textureView.setSurfaceTextureListener(textureListener);
         boutonPrendrePhoto = (Button) findViewById(R.id.bouton_prendre_photo);
         assert boutonPrendrePhoto != null;
+        obj = (LesObjets)getApplicationContext();
+
         boutonPrendrePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Thread thread = new Thread(){
-                    public void run(){
-                        takePicture();
-                    }
-                };
+                Log.d("Album courant",obj.getUtilisateur().getAlbumCourantId());
+                if(!obj.getUtilisateur().getAlbumCourantId().equals("null")) {
 
-                thread.start();
-                try {
-                    sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread thread = new Thread() {
+                        public void run() {
+                            takePicture();
+                        }
+                    };
+
+                    thread.start();
+                    try {
+                        sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent intent = new Intent(getApplicationContext(), ParamPhotoActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(AppareilPhotoActivity.this, "Veuillez définir un album courant", Toast.LENGTH_SHORT).show();
                 }
 
-                Intent intent = new Intent(getApplicationContext(), ParamPhotoActivity.class);
-                startActivity(intent);
             }
         });
 // en note pour test
@@ -215,7 +227,10 @@ public class AppareilPhotoActivity extends AppCompatActivity {
                 width = jpegSizes[0].getWidth();
                 height = jpegSizes[0].getHeight();
             }
-            ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
+
+            /*Ici on peut gérer la taille des photos*/
+
+            ImageReader reader = ImageReader.newInstance(width/3, height/3, ImageFormat.JPEG, 1);
             List<Surface> outputSurfaces = new ArrayList<Surface>(2);
             outputSurfaces.add(reader.getSurface());
             outputSurfaces.add(new Surface(textureView.getSurfaceTexture()));
@@ -230,7 +245,7 @@ public class AppareilPhotoActivity extends AppCompatActivity {
 
             Log.d("PATH",photoPath);
             final File file = new File(photoPath);
-            LesObjets obj = (LesObjets)getApplicationContext();
+
             obj.setPath(photoPath);
 
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {

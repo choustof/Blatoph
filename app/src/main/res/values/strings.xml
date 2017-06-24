@@ -3,6 +3,7 @@
     <string name="header">Le Header</string>
     <string name="email">Email</string>
     <string name="mdp">Mot de passe</string>
+    <string name="confirmer_mdp">Confirmer le mot de passe</string>
     <string name="confmdn">Confirmer le mot de passe</string>
     <string name="valider">Valider</string>
     <string name="logo_connexion_dscription">Log page de conn exion</string>
@@ -28,5 +29,6 @@
     <string name="amis_album">Partager avec Amis</string>
     <string name="amis_partage">Amis pour partage</string>
     <string name="titre_album">Titre de l\'album</string>
+    <string name="nom">Nom</string>
 
 </resources>
