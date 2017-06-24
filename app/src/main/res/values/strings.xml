@@ -23,5 +23,9 @@
     <string name="legende_param_photo">Légende</string>
     <string name="ajouter_courant">Ajouter la photo à album courant</string>
     <string name="nouveau">Nouveau</string>
+    <string name="nvx_album">Création album</string>
+    <string name="creer_album">Créer nouvel album</string>
+    <string name="amis_album">Partager avec Amis</string>
+    <string name="amis_partage">Amis pour partage</string>
 
 </resources>
