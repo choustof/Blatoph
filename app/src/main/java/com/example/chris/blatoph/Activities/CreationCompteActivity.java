@@ -51,7 +51,7 @@ public class CreationCompteActivity extends AppCompatActivity {
         final EditText mdp = (EditText) findViewById(R.id.editText_mdp);
         mdp.setHint(res.getString(R.string.mdp));
         final EditText confirmerMdp = (EditText) findViewById(R.id.editText_mdp2);
-        confirmerMdp.setHint(res.getString(R.string.confirmer_mdp));
+        confirmerMdp.setHint(res.getString(R.string.confmdn));
 
 
         final Button button = (Button) findViewById(R.id.button_creation);
