@@ -54,6 +54,18 @@ public class ListeAlbumActivity extends AppCompatActivity {
 
             });
 
+
+
+            final Button retour = (Button) findViewById(R.id.button);
+            retour.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), AppareilPhotoActivity.class);
+                    startActivity(intent);
+                }
+
+
+            });
+
             obj = (LesObjets)getApplicationContext();
 
             url = obj.getUrl()+"utilisateurs/"+obj.getUtilisateur().getId()+"albums";
