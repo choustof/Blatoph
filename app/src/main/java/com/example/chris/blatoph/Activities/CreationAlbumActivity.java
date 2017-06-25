@@ -84,7 +84,7 @@ public class CreationAlbumActivity extends AppCompatActivity {
                                               try {
                                                   album.put("titre", titreAlbum);
                                                   album.put("date_creation", dateAlbum);
-                                                  album.put("id_uti", utilisateurId);
+                                                  album.put("uti_id", utilisateurId);
                                               } catch (JSONException e) {
                                                   e.printStackTrace();
                                               }
