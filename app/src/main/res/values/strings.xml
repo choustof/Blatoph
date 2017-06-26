@@ -30,5 +30,7 @@
     <string name="amis_partage">Amis pour partage</string>
     <string name="titre_album">Titre de l\'album</string>
     <string name="nom">Nom</string>
+    <string name="deconnexion">Se déconnecter</string>
+    <string name="album_courant">Définir comme \n album courant</string>
 
 </resources>

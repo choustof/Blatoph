@@ -14,7 +14,7 @@
         android:textSize="18sp" />
 
     <ListView
-        android:id="@+id/listView_amis"
+        android:id="@+id/listView_amisPartage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"

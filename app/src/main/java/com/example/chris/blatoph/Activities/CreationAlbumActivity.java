@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.chris.blatoph.Classes.Utilisateur;
 import com.example.chris.blatoph.Http.RequeteServeur;
 import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
@@ -18,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
@@ -77,8 +79,10 @@ public class CreationAlbumActivity extends AppCompatActivity {
                 if (!titreAlbum.isEmpty()) {
                     JSONObject album = new JSONObject();
                     JSONObject utiId = new JSONObject();
+                    JSONObject albumPartage = new JSONObject();
 
                     try {
+
                         album.put("titre", titreAlbum);
                         album.put("date_creation", dateAlbum);
                         album.put("uti_id", utilisateurId);
@@ -86,13 +90,25 @@ public class CreationAlbumActivity extends AppCompatActivity {
                         RequeteServeur requete = new RequeteServeur();
                         JSONArray reponse = null;
                         reponse = requete.execute("POST", obj.getUrl() + "albums", album.toString()).get();
-                        Log.d("Reponse", reponse.getJSONObject(reponse.length()-2).toString());
+                        Log.d("Reponse", reponse.getJSONObject(reponse.length() - 2).toString());
 
-                        utiId.put("album_courant_id", reponse.getJSONObject(reponse.length()-2).get("id"));
-                        obj.getUtilisateur().putAlbumCourantId(reponse.getJSONObject(reponse.length()-2).get("id").toString());
+                        String albId = reponse.getJSONObject(reponse.length() - 2).get("id").toString();
+
+                        utiId.put("album_courant_id", reponse.getJSONObject(reponse.length() - 2).get("id"));
+                        obj.getUtilisateur().setAlbumCourantId(albId);
                         Log.d("ALLLLLLL ", obj.getUtilisateur().getAlbumCourantId());
 
                         reponse = new RequeteServeur().execute("PUT", obj.getUrl() + "utilisateurs/" + utilisateurId, utiId.toString()).get();
+
+                        ArrayList<Utilisateur> amisSelectionnes = new ArrayList<Utilisateur>(obj.getAmisSelectionnes());
+
+                        for (int i =  0;i<amisSelectionnes.size(); i++){
+
+                            albumPartage.put("uti_id",amisSelectionnes.get(i).getId());
+                            albumPartage.put("alb_id",albId);
+                            reponse = new RequeteServeur().execute("POST", obj.getUrl() + "albumPartages", albumPartage.toString()).get();
+                        }
+
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -103,6 +119,7 @@ public class CreationAlbumActivity extends AppCompatActivity {
                     }
 
 
+                    obj.clearAmisSelectionnes();
                     Intent intent = new Intent(getApplicationContext(), ListeAlbumActivity.class);
                     startActivity(intent);
                 }

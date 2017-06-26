@@ -69,7 +69,7 @@ public class AmisActivity extends AppCompatActivity {
 
                                           String adresseEmail = email.getText().toString();
 
-                                          if (!adresseEmail.isEmpty()) {
+                                          if (!adresseEmail.isEmpty() && !adresseEmail.equals(obj.getUtilisateur().getAdresse())) {
 
                                               JSONObject ami = new JSONObject();
                                               JSONArray reponse = null;
@@ -107,6 +107,10 @@ public class AmisActivity extends AppCompatActivity {
 
                                   }
         );
+
+        mListView = (ListView) findViewById(R.id.listView_amis);
+
+        afficherListeAmis();
     }
 
     private List<Utilisateur> genererAmis(){

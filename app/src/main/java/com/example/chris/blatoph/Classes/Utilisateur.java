@@ -80,6 +80,7 @@ public class Utilisateur{
 	public String getAlbumCourantId(){
         return this.albumCourantId;
     }
+
     public String getMotDePasse(){
         return motDePasse;
     }
@@ -257,7 +258,7 @@ public class Utilisateur{
         listeAlbums.put(id, album);
     }
 
-    public void putAlbumCourantId(String id) {
+    public void setAlbumCourantId(String id) {
         this.albumCourantId = id;
     }
 }

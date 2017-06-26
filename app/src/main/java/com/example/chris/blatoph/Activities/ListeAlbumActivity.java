@@ -41,7 +41,9 @@ public class ListeAlbumActivity extends AppCompatActivity {
 
     /* Lorsqu'on appuie sur le bouton retour*/
     public void onBackPressed(){
-        finish();
+        Intent intent = new Intent(getApplicationContext(), AppareilPhotoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 
@@ -72,6 +74,9 @@ public class ListeAlbumActivity extends AppCompatActivity {
         });*/
 
         obj = (LesObjets) getApplicationContext();
+
+        /*On deselectionne les amis selectionnes llors de la creation d'album*/
+        obj.clearAmisSelectionnes();
 
         url = obj.getUrl() + "utilisateurs/" + obj.getUtilisateur().getId() + "/albums";
         url2 = obj.getUrl() + "utilisateurs/" + obj.getUtilisateur().getId() + "/albumPartages";

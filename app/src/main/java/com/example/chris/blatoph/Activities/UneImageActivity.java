@@ -26,7 +26,7 @@ public class UneImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.une_image);
 
-        requete = new RequeteServeur();
+        /*requete = new RequeteServeur();
         reponse = null;
         obj = (LesObjets)getApplicationContext();
 
@@ -41,6 +41,7 @@ public class UneImageActivity extends AppCompatActivity {
             Id = (int) savedInstanceState.getSerializable("PHO_ID");
         }
 
+    }*/
     }
 
 
