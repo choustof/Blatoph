@@ -2,6 +2,7 @@ package com.example.chris.blatoph.Activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class UtilisateurActivity extends AppCompatActivity {
 
     Resources res;
     LesObjets obj;
+    public static final String PREFERENCES_UTILISATEUR = "Preferences";
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,6 +60,23 @@ public class UtilisateurActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AmisActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button buttonDeconnexion = (Button) findViewById(R.id.deconnexion);
+        buttonDeconnexion.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                SharedPreferences preferences = getSharedPreferences(PREFERENCES_UTILISATEUR, 0);
+                SharedPreferences.Editor editeur = preferences.edit();
+                editeur.remove("token");
+                editeur.commit();
+
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });

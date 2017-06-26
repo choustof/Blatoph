@@ -423,6 +423,11 @@ public class AppareilPhotoActivity extends AppCompatActivity {
         openCamera();
     }
 
+    /* Lorsqu'on appuie sur le bouton retour*/
+    public void onBackPressed(){
+        this.finishAffinity();
+    }
+
 
 
 }
