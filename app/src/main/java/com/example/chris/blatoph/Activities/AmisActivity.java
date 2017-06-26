@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import com.example.chris.blatoph.AmiAdapter;
+import com.example.chris.blatoph.Classes.Utilisateur;
 import com.example.chris.blatoph.Http.RequeteServeur;
 import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
@@ -18,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -30,6 +35,12 @@ public class AmisActivity extends AppCompatActivity {
     Resources res;
     LesObjets obj;
     String url;
+    private ListView mListView;
+    RequeteServeur requete = new RequeteServeur();
+    JSONArray reponse;
+    ArrayList<String> amisId;
+    int mSelectedItem;
+    AmiAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -96,5 +107,43 @@ public class AmisActivity extends AppCompatActivity {
 
                                   }
         );
+    }
+
+    private List<Utilisateur> genererAmis(){
+        List<Utilisateur> amis = new ArrayList<Utilisateur>();
+
+        try {
+
+            String url = obj.getUrl() + "utilisateurs/" + obj.getUtilisateur().getId() + "/amis";
+            reponse = new RequeteServeur().execute("GET", url).get();
+            reponse.remove(reponse.length()-1);
+
+            for (int i = 0;i < reponse.length(); i++) {
+                JSONObject ami = reponse.getJSONObject(i);
+                amis.add(new Utilisateur(
+                        ami.get("id").toString(),
+                        ami.get("nom").toString(),
+                        ami.get("email").toString()
+                ));
+            }
+
+            obj.setAmis(amis);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return amis;
+    }
+
+    private void afficherListeAmis(){
+        List<Utilisateur> amis = genererAmis();
+
+        adapter = new AmiAdapter(AmisActivity.this, amis);
+        mListView.setAdapter(adapter);
     }
 }

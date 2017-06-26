@@ -40,7 +40,6 @@ import okhttp3.internal.Util;
 
 public class AmisPatageActivity extends AppCompatActivity {
 
-
     Resources res;
     LesObjets obj;
     private ListView mListView;

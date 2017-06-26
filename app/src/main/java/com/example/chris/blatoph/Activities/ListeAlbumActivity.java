@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,6 +38,14 @@ public class ListeAlbumActivity extends AppCompatActivity {
     String url, url2;
     RequeteServeur requete = new RequeteServeur();
     LesObjets obj;
+
+
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        super.onBackPressed();
+        event = setContentView(R.layout.appareil_photo);
+
+        return true;
+    }
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +168,8 @@ public class ListeAlbumActivity extends AppCompatActivity {
         AlbumAdapter adapter = new AlbumAdapter(ListeAlbumActivity.this, albums);
         mListView.setAdapter(adapter);
     }
+
+
 }
 
 
