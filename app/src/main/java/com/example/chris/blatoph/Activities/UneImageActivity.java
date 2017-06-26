@@ -1,7 +1,11 @@
 package com.example.chris.blatoph.Activities;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.chris.blatoph.Classes.Photo;
 import com.example.chris.blatoph.Http.RequeteServeur;
@@ -19,30 +23,35 @@ import org.json.JSONObject;
 
 public class UneImageActivity extends AppCompatActivity {
 
-
-
+    int phoId;
+    LesObjets obj;
+    Resources res;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.une_image);
 
-        /*requete = new RequeteServeur();
-        reponse = null;
-        obj = (LesObjets)getApplicationContext();
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                Id= 0;
+            if (extras == null) {
+                phoId = 0;
             } else {
-                Id= extras.getInt("PHO_ID");
+                phoId = extras.getInt("PHO_ID");
             }
         } else {
-            Id = (int) savedInstanceState.getSerializable("PHO_ID");
+            phoId = (int) savedInstanceState.getSerializable("PHO_ID");
         }
 
-    }*/
+        res = this.getResources();
+        obj = (LesObjets) getApplicationContext();
+        Bitmap image = obj.getPhotos().get(phoId).getImage();
+
+        final ImageView imageView = (ImageView) findViewById(R.id.imageView3);
+        imageView.setImageBitmap(image);
+
+
+
     }
-
-
 }
+
+

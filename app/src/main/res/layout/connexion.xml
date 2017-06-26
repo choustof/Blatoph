@@ -49,19 +49,21 @@
             android:inputType="textPassword" />
 
         <Button
-            android:text="@string/valider"
+            android:id="@+id/bouton_connexion"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:id="@+id/bouton_connexion"
-            android:layout_marginStart="55dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/editText_mdp" />
+            android:layout_alignStart="@+id/editText_mdp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="55dp"
+            android:text="@string/valider" />
 
     </RelativeLayout>
 
     <Button
         android:id="@+id/nouvel_utilisateur"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

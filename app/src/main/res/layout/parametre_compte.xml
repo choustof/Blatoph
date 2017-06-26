@@ -24,16 +24,18 @@
             android:orientation="vertical"
             android:weightSum="1">
 
-          <TextView
-            android:id="@+id/nompage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/parametre_cpt"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:textSize="18sp"
-            />
+            <TextView
+                android:id="@+id/nompage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="@string/parametre_cpt"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/utilisateur_nom"
@@ -69,6 +71,7 @@
 
             <Button
                 android:id="@+id/Amis"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="74dp"
@@ -76,6 +79,7 @@
 
             <Button
                 android:id="@+id/enregistrer"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="74dp"
@@ -83,6 +87,7 @@
 
             <Button
                 android:id="@+id/deconnexion"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="74dp"

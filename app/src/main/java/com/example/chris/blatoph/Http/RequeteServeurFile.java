@@ -2,6 +2,7 @@ package com.example.chris.blatoph.Http;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -262,7 +263,13 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             Log.d("SOurce","src");
-            return myBitmap;
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+
+            Bitmap avantRotation = Bitmap.createScaledBitmap(myBitmap,myBitmap.getWidth(),myBitmap.getHeight(),true);
+            Bitmap apresRotation = Bitmap.createBitmap(avantRotation,0,0,avantRotation.getWidth(),avantRotation.getHeight(),matrix,true);
+            return apresRotation;
         } catch (IOException e) {
             // Log exception
             return null;

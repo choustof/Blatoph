@@ -8,25 +8,32 @@
 
     <Button
         android:id="@+id/album_courant"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="100dp"
         android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/editText_titre"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/app_background"
         android:text="@string/album_courant"
         android:textSize="8sp" />
 
     <TextView
         android:id="@+id/editText_titre"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/album_courant"
+        android:layout_marginTop="16dp"
         android:ems="10"
+
         android:inputType="text"
         android:text="@string/liste_photo"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_light"
         android:textSize="18sp"
-
-        android:layout_marginStart="36dp" />
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/listView_photo"

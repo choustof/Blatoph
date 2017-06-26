@@ -13,44 +13,47 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true" />
+
     <Button
         android:id="@+id/bouton_prendre_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-         />
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/logo" />
 
     <Button
         android:id="@+id/bouton_switch_appareil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="29dp"
+        android:background="@android:drawable/stat_notify_sync"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="32dp"
-        android:layout_toEndOf="@+id/bouton_prendre_photo" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="28dp" />
 
     <Button
         android:id="@+id/parametre"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/bouton_prendre_photo"
         android:text="@string/parametre"
-        android:layout_alignBaseline="@+id/bouton_prendre_photo"
-        android:layout_alignBottom="@+id/bouton_prendre_photo"
-        android:layout_alignStart="@+id/bouton_switch_appareil"
-        android:layout_marginStart="11dp" />
+        android:layout_toEndOf="@+id/bouton_prendre_photo"
+        android:layout_alignBottom="@+id/bouton_prendre_photo" />
 
     <Button
         android:id="@+id/album"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/bouton_prendre_photo"
         android:layout_alignTop="@+id/bouton_prendre_photo"
-        android:layout_marginEnd="25dp"
-        android:layout_toStartOf="@+id/bouton_prendre_photo"
-        android:text="@string/album" />
+        android:text="@string/album"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/bouton_prendre_photo" />
 
 
 </RelativeLayout>

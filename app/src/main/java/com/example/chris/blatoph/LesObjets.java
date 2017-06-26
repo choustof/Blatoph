@@ -41,13 +41,13 @@ public class LesObjets extends Application {
         return path;
     }
 
-    private ArrayList<Photo> getPhotos(){
+    public ArrayList<Photo> getPhotos(){
         return photos;
 
     }
 
-    public void setPhotos(ArrayList<Photo> photos) {
-        this.photos = photos;
+    public void setPhotos(List<Photo> photos) {
+        this.photos = (ArrayList<Photo>)photos;
     }
 
     public void setAlbums(List<Album> albums) {
@@ -92,6 +92,10 @@ public class LesObjets extends Application {
 
     public ArrayList<Utilisateur> getAmisSelectionnes(){
         return new ArrayList<Utilisateur>(amisSelectionnes.values());
+    }
+
+    public void clearAlbums(){
+        albums = new ArrayList<Album>();
     }
 
 

@@ -45,6 +45,7 @@
         <activity android:name=".Activities.ParamPhotoActivity"/>
         <activity android:name=".Activities.ListeAlbumActivity"/>
         <activity android:name=".Activities.ListePhotoActivity"/>
+        <activity android:name=".Activities.UneImageActivity"/>
 
 
 

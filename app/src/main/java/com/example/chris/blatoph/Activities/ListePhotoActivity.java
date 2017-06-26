@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -65,7 +66,7 @@ public class ListePhotoActivity extends AppCompatActivity {
 
         final Button albumCourant = (Button) findViewById(R.id.album_courant);
 
-        if(albumCourantId.equals(obj.getUtilisateur().getAlbumCourantId())){
+        if (albumCourantId.equals(obj.getUtilisateur().getAlbumCourantId())) {
             albumCourant.setEnabled(false);
         }
 
@@ -79,8 +80,8 @@ public class ListePhotoActivity extends AppCompatActivity {
 
                     reponse = requete.execute("PUT", obj.getUrl() + "utilisateurs/" + obj.getUtilisateur().getId(), albumCourantJSON.toString()).get();
                     obj.getUtilisateur().setAlbumCourantId(albumCourantId);
-                    Log.d("LOGG",obj.getUtilisateur().getAlbumCourantId());
-                albumCourant.setEnabled(false);
+                    Log.d("LOGG", obj.getUtilisateur().getAlbumCourantId());
+                    albumCourant.setEnabled(false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -95,6 +96,14 @@ public class ListePhotoActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView_photo);
 
         afficherListePhotos();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), UneImageActivity.class);
+                intent.putExtra("PHO_ID", position);
+                startActivity(intent);
+            }
+        });
     }
 
     private List<Photo> genererPhotos() {
@@ -132,6 +141,7 @@ public class ListePhotoActivity extends AppCompatActivity {
        /* photos.add(new Photo("Photo 1","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
         photos.add(new Photo("Photo 4","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
 */
+        obj.setPhotos(photos);
         return photos;
     }
 

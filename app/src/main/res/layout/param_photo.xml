@@ -8,7 +8,14 @@
         android:id="@+id/param_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/param_photo" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="18dp"
+        android:text="@string/param_photo"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/titre_param_photo"
@@ -26,23 +33,24 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/titre_param_photo"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/ajouter"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/ajouter_courant"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/ajouter_courant" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/legende_param_photo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
