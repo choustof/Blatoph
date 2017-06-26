@@ -39,12 +39,9 @@ public class ListeAlbumActivity extends AppCompatActivity {
     RequeteServeur requete = new RequeteServeur();
     LesObjets obj;
 
-
-    public boolean onKeyDown(int keyCode, KeyEvent event){
-        super.onBackPressed();
-        event = setContentView(R.layout.appareil_photo);
-
-        return true;
+    /* Lorsqu'on appuie sur le bouton retour*/
+    public void onBackPressed(){
+        finish();
     }
 
 
@@ -64,7 +61,7 @@ public class ListeAlbumActivity extends AppCompatActivity {
         });
 
 
-        final Button retour = (Button) findViewById(R.id.button);
+        /*final Button retour = (Button) findViewById(R.id.button);
         retour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AppareilPhotoActivity.class);
@@ -72,7 +69,7 @@ public class ListeAlbumActivity extends AppCompatActivity {
             }
 
 
-        });
+        });*/
 
         obj = (LesObjets) getApplicationContext();
 
