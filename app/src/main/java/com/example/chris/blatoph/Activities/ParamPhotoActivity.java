@@ -53,11 +53,14 @@ public class ParamPhotoActivity extends AppCompatActivity {
         final String url = obj.getUrl() + "photos";
         final String path = obj.getPath();
         final String albumCourantId = obj.getUtilisateur().getAlbumCourantId();
+        Log.d("AlbumCourantIdPhoto", albumCourantId);
         final String utilisateurId = obj.getUtilisateur().getId();
 
         final Button button = (Button) findViewById(R.id.ajouter);
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
+
+
 
                                           /*Photo p = new Photo(titre.getText().toString(),legende.getText().toString(),"");
                                           JSONObject photoJson = new JSONObject();

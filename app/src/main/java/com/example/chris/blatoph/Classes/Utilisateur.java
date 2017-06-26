@@ -22,6 +22,18 @@ public class Utilisateur{
     private String albumCourantId;
 
 
+    /*
+	 * Constructeur d'un utilisateur
+	 * @params
+	 */
+
+    public Utilisateur(String id, String prenom  ,String adresseMail){
+
+        this.id = id;
+        this.prenom = prenom;
+        this.adresseMail = adresseMail;
+    }
+
 	/*
 	 * Constructeur d'un utilisateur
 	 * @params  prenom, adresseMail, motdePasse
@@ -243,5 +255,9 @@ public class Utilisateur{
 
     public void addAlbum(String id,Album album){
         listeAlbums.put(id, album);
+    }
+
+    public void putAlbumCourantId(String id) {
+        this.albumCourantId = id;
     }
 }

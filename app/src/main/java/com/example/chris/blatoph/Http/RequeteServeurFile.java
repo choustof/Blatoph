@@ -121,7 +121,7 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
                 .addFormDataPart("titre",titre)
                 .addFormDataPart("date_creation",date)
                 .addFormDataPart("legende",legende)
-                .addFormDataPart("alb_id","1")
+                .addFormDataPart("alb_id",albumCourantId)
                 .addFormDataPart("uti_id",utilisateurId)
                 .build();
 

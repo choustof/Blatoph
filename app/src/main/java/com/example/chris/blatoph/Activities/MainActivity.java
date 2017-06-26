@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         obj = (LesObjets)getApplicationContext();
 
         //A remplacer selon le serveur
-        obj.setUrl("http://192.168.0.25/blatoph-server/web/");
+        obj.setUrl("http://192.168.43.53/blatoph-server/web/");
 
         /*Creation du dossier de stockage des fichiers de l'application*/
         File mydir = new File(Environment.getExternalStorageDirectory() + "/Blatoph/");
@@ -216,20 +216,6 @@ public class MainActivity extends AppCompatActivity {
                     reponse.getJSONObject(0).get("albumCourantId").toString()
             ));
 
-            //Recupération des albums
-            url = obj.getUrl() + "utilisateurs/" +id+"/albums";
-            reponse = new RequeteServeur().execute("GET", url).get();
-            reponse.remove(reponse.length()-1);
-
-            for (int i = 0; i < reponse.length(); i++) {
-                JSONObject album = reponse.getJSONObject(i);
-                obj.getUtilisateur().addAlbum(album.get("id").toString(),new Album(
-                    album.get("id").toString(),
-                    album.get("titre").toString(),
-                    album.get("date_creation").toString(),
-                    album.get("uti_id").toString()
-                    ));
-            }
 
         } catch (InterruptedException e) {
             e.printStackTrace();

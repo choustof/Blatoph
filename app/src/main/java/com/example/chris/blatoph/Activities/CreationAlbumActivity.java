@@ -39,7 +39,6 @@ public class CreationAlbumActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 
-
 //Permet de récupérer les données stockées dans le dossier des ressources
         setContentView(R.layout.creation_album);
 
@@ -47,7 +46,7 @@ public class CreationAlbumActivity extends AppCompatActivity {
 
         obj = (LesObjets) getApplicationContext();
 
-        final EditText titre = (EditText)findViewById(R.id.titre_param_album);
+        final EditText titre = (EditText) findViewById(R.id.titre_param_album);
         titre.setHint(res.getString(R.string.titre_album));
 
         final String utilisateurId = obj.getUtilisateur().getId();
@@ -55,59 +54,62 @@ public class CreationAlbumActivity extends AppCompatActivity {
 
         final Button amis = (Button) findViewById(R.id.amis);
         amis.setOnClickListener(new View.OnClickListener() {
-                                      public void onClick(View v) {
+                                    public void onClick(View v) {
 
 
-                                          Intent intent = new Intent(getApplicationContext(), AmisPatageActivity.class);
-                                          startActivity(intent);
-                                      }
+                                        Intent intent = new Intent(getApplicationContext(), AmisPatageActivity.class);
+                                        startActivity(intent);
+                                    }
 
 
-                                  }
+                                }
         );
-
 
 
         final Button creation = (Button) findViewById(R.id.ajouter);
         creation.setOnClickListener(new View.OnClickListener() {
-                                      public void onClick(View v) {
+            public void onClick(View v) {
 
-                                          String titreAlbum = titre.getText().toString();
-                                          String dateAlbum = new Date().toString();
-
-
-                                          if (!titreAlbum.isEmpty()){
-                                              JSONObject album = new JSONObject();
+                String titreAlbum = titre.getText().toString();
+                String dateAlbum = new Date().toString();
 
 
+                if (!titreAlbum.isEmpty()) {
+                    JSONObject album = new JSONObject();
+                    JSONObject utiId = new JSONObject();
 
-                                              try {
-                                                  album.put("titre", titreAlbum);
-                                                  album.put("date_creation", dateAlbum);
-                                                  album.put("uti_id", utilisateurId);
-                                              } catch (JSONException e) {
-                                                  e.printStackTrace();
-                                              }
+                    try {
+                        album.put("titre", titreAlbum);
+                        album.put("date_creation", dateAlbum);
+                        album.put("uti_id", utilisateurId);
 
-                                              RequeteServeur requete = new RequeteServeur();
-                                              JSONArray reponse = null;
-                                              try {
-                                                  reponse = requete.execute("POST", obj.getUrl() + "albums", album.toString()).get();
-                                              } catch (InterruptedException e) {
-                                                  e.printStackTrace();
-                                              } catch (ExecutionException e) {
-                                                  e.printStackTrace();
-                                              }
+                        RequeteServeur requete = new RequeteServeur();
+                        JSONArray reponse = null;
+                        reponse = requete.execute("POST", obj.getUrl() + "albums", album.toString()).get();
+                        Log.d("Reponse", reponse.getJSONObject(reponse.length()-2).toString());
 
-                                              Log.d("Reponse", reponse.toString());
+                        utiId.put("album_courant_id", reponse.getJSONObject(reponse.length()-2).get("id"));
+                        obj.getUtilisateur().putAlbumCourantId(reponse.getJSONObject(reponse.length()-2).get("id").toString());
+                        Log.d("ALLLLLLL ", obj.getUtilisateur().getAlbumCourantId());
+
+                        reponse = new RequeteServeur().execute("PUT", obj.getUrl() + "utilisateurs/" + utilisateurId, utiId.toString()).get();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
-                                          Intent intent = new Intent(getApplicationContext(), ListeAlbumActivity.class);
-                                          startActivity(intent);
-                                      }
+                    Intent intent = new Intent(getApplicationContext(), ListeAlbumActivity.class);
+                    startActivity(intent);
+                }
 
 
-                                  }
-    });
-}}
+            }
+        });
+    }
+}
 

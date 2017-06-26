@@ -45,7 +45,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo>{
         }
 
         Photo photo = getItem(position);
-        viewHolder.titre.setText(photo.getTitre());
+        viewHolder.titre.setText(photo.getTitre()+ "\n" + photo.getLegende());
         viewHolder.image.setImageBitmap(photo.getImage());
 
         return convertView;

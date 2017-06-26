@@ -74,7 +74,7 @@ public class ListePhotoActivity extends AppCompatActivity {
             reponse = new RequeteServeur().execute("GET", url).get();
             reponse.remove(reponse.length()-1);
 
-            for (int i = 0; i < reponse.length(); i++) {
+            for (int i = reponse.length()-1; i >= 0; i--) {
                 JSONObject photo = reponse.getJSONObject(i);
                 RequeteServeurFile requeteFile = new RequeteServeurFile();
                 photos.add(new Photo(
@@ -96,16 +96,6 @@ public class ListePhotoActivity extends AppCompatActivity {
         Log.d("PATH",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg");
 
        /* photos.add(new Photo("Photo 1","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 2","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 3","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 4","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 1","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 2","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 3","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 4","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 1","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 2","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
-        photos.add(new Photo("Photo 3","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
         photos.add(new Photo("Photo 4","",Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg"));
 */
         return photos;

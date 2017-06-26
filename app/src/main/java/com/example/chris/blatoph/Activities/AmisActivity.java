@@ -10,10 +10,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.chris.blatoph.Http.RequeteServeur;
 import com.example.chris.blatoph.LesObjets;
 import com.example.chris.blatoph.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Sarah Pierson on 02/06/2017.
@@ -24,6 +29,7 @@ public class AmisActivity extends AppCompatActivity {
 
     Resources res;
     LesObjets obj;
+    String url;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,28 +52,45 @@ public class AmisActivity extends AppCompatActivity {
         final String utilisateurId = obj.getUtilisateur().getId();
 
 
-
-
         final Button button = (Button) findViewById(R.id.ajt_ami);
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
 
                                           String adresseEmail = email.getText().toString();
 
-                                          if (!adresseEmail.isEmpty()){
+                                          if (!adresseEmail.isEmpty()) {
 
-                                              JSONObject amis = new JSONObject();
+                                              JSONObject ami = new JSONObject();
+                                              JSONArray reponse = null;
+                                              JSONObject id = null;
 
-                                              amis.put("uti_id", utilisateurId);
+                                              try {
+                                                  url = obj.getUrl() + "utilisateurs/ami/" + adresseEmail;
+                                                  reponse = new RequeteServeur().execute("GET", url).get();
+                                                  id = reponse.getJSONObject(0);
 
+
+                                                  ami.put("uti_id", utilisateurId);
+                                                  ami.put("ami_id", id.getString("id"));
+
+                                                  url = obj.getUrl() + "amis";
+                                                  reponse = new RequeteServeur().execute("POST", url, ami.toString()).get();
+
+                                                  finish();
+                                                  startActivity(getIntent());
+
+                                              } catch (JSONException e) {
+                                                  e.printStackTrace();
+                                              } catch (InterruptedException e) {
+                                                  e.printStackTrace();
+                                              } catch (ExecutionException e) {
+                                                  e.printStackTrace();
+                                              }
 
 
                                           }
 
 
-
-                                          Intent intent = new Intent(getApplicationContext(), UtilisateurActivity.class);
-                                          startActivity(intent);
                                       }
 
 

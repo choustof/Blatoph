@@ -18,6 +18,7 @@ public class LesObjets extends Application {
 
     private ArrayList<Photo> photos;
     private ArrayList<Album> albums;
+    private ArrayList<Utilisateur> amis;
     private Utilisateur utilisateur;
     private String path, url;
 
@@ -53,6 +54,10 @@ public class LesObjets extends Application {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public void setAmis(List<Utilisateur> amis){
+        this.amis = (ArrayList<Utilisateur>)amis;
     }
 
     public ArrayList<Album> getAlbums() {

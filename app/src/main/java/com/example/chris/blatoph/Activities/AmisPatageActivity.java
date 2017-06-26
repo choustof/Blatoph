@@ -2,16 +2,37 @@ package com.example.chris.blatoph.Activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.chris.blatoph.AmiAdapter;
+import com.example.chris.blatoph.Classes.Photo;
+import com.example.chris.blatoph.Classes.Utilisateur;
+import com.example.chris.blatoph.Http.RequeteServeur;
+import com.example.chris.blatoph.Http.RequeteServeurFile;
 import com.example.chris.blatoph.LesObjets;
+import com.example.chris.blatoph.PhotoAdapter;
 import com.example.chris.blatoph.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import okhttp3.internal.Util;
 
 /**
  * Created by Sarah Pierson on 24/06/2017.
@@ -22,7 +43,12 @@ public class AmisPatageActivity extends AppCompatActivity {
 
     Resources res;
     LesObjets obj;
-
+    private ListView mListView;
+    RequeteServeur requete = new RequeteServeur();
+    JSONArray reponse;
+    ArrayList<String> amisId;
+    int mSelectedItem;
+    AmiAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,6 +64,8 @@ public class AmisPatageActivity extends AppCompatActivity {
         res = this.getResources();
 
         obj = (LesObjets) getApplicationContext();
+
+        amisId = new ArrayList<String>();
 
         final EditText email = (EditText) findViewById(R.id.editText);
         email.setHint(res.getString(R.string.email));
@@ -69,9 +97,55 @@ public class AmisPatageActivity extends AppCompatActivity {
                                   }
         );
 
+        mListView = (ListView) findViewById(R.id.listView_amis);
+
+        afficherListeAmis();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
+                mListView.getChildAt(position).setBackgroundColor(Color.BLUE);
+            }
+        });
+    }
 
+    private List<Utilisateur> genererAmis(){
+        List<Utilisateur> amis = new ArrayList<Utilisateur>();
+
+        try {
+
+            String url = obj.getUrl() + "utilisateurs/" + obj.getUtilisateur().getId() + "/amis";
+            reponse = new RequeteServeur().execute("GET", url).get();
+            reponse.remove(reponse.length()-1);
+
+            for (int i = 0;i < reponse.length(); i++) {
+                JSONObject ami = reponse.getJSONObject(i);
+                amis.add(new Utilisateur(
+                        ami.get("id").toString(),
+                        ami.get("nom").toString(),
+                        ami.get("email").toString()
+                ));
+            }
+
+            obj.setAmis(amis);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return amis;
+    }
+
+    private void afficherListeAmis(){
+        List<Utilisateur> amis = genererAmis();
+
+        adapter = new AmiAdapter(AmisPatageActivity.this, amis);
+        mListView.setAdapter(adapter);
     }
 }
 

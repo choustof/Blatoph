@@ -20,7 +20,7 @@ public class Album extends Observable implements Edition {
 
 
     private ArrayList<Photo> listePhotos;
-    private ArrayList<Utilisateur> listeObservateur;
+    private ArrayList<String> listeObservateur;
     private Utilisateur createur;
     private Date dateCreation;
     public Boolean albumCourant;
@@ -37,7 +37,7 @@ public class Album extends Observable implements Edition {
         this.createur = createur;
         dateCreation = new Date();
         listePhotos = new ArrayList<Photo>();
-        listeObservateur = new ArrayList<Utilisateur>();
+        listeObservateur = new ArrayList<String>();
         this.albumCourant=false;
     }
 
@@ -53,7 +53,7 @@ public class Album extends Observable implements Edition {
         this.titre = titre;
         this.dateCreation = new Date();
         listePhotos = new ArrayList<Photo>();
-        listeObservateur = new ArrayList<Utilisateur>();
+        listeObservateur = new ArrayList<String>();
         this.albumCourant=false;
         this.createur= new Utilisateur(createur);
     }
@@ -149,6 +149,15 @@ public class Album extends Observable implements Edition {
         return infos;
     }
 
+    public ArrayList<String> getListeObservateur(){
+        return listeObservateur;
+    }
+
+
+    public void setListeObservateur(String id){
+
+        listeObservateur.add(id);
+    }
     /*
      * Methode toString()
      * Retourne le minimum d'informations sur l'album, tout en permettant de savoir de quel album il s'agit
