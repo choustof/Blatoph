@@ -9,7 +9,7 @@ For the front, we have use Android Studio.
 (to see API : https://github.com/choustof/blatoph-server)
 This application is coded in Java
 
-# Run the website
+# Run the APP
 This app is not on a web store, so to run it, you must have the Development Environment.
 
 prerequisite :
