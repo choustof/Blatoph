@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         obj = (LesObjets) getApplicationContext();
 
         //A remplacer selon le serveur
-        obj.setUrl("http://192.168.0.34/blatoph-server/web/");
+        obj.setUrl("http://192.168.43.53/blatoph-server/web/");
 
         /*Creation du dossier de stockage des fichiers de l'application*/
         File mydir = new File(Environment.getExternalStorageDirectory() + "/Blatoph/");
@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                                     button.setBackgroundColor(3);
                                 }
                             } else {
+                                if (code.getString("code").equals("404")) {
+                                    Toast.makeText(MainActivity.this, "Ces informations de login ne correspondent à aucun compte utiisateur", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                         } catch (JSONException e) {
@@ -199,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Requete", "The id is " + id);
         RequeteServeur requete = new RequeteServeur();
         JSONArray reponse = null;
-        JSONObject nom = null;
         SharedPreferences preferences = getSharedPreferences(PREFERENCES_UTILISATEUR, 0);
         SharedPreferences.Editor editeur = preferences.edit();
 
@@ -221,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
 
             editeur.putString("token",reponse.getJSONObject(0).get("token").toString());
             editeur.commit();
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.chris.blatoph.Classes.Photo;
 import com.example.chris.blatoph.Http.RequeteServeurFile;
@@ -65,43 +66,31 @@ public class ParamPhotoActivity extends AppCompatActivity {
         final ImageView imagepreview = (ImageView) findViewById(R.id.imageView2);
         imagepreview.setImageBitmap(bitmap);
 
-
-
-
-
         final String albumCourantId = obj.getUtilisateur().getAlbumCourantId();
         Log.d("AlbumCourantIdPhoto", albumCourantId);
         final String utilisateurId = obj.getUtilisateur().getId();
-
-
 
         final Button button = (Button) findViewById(R.id.ajouter);
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
 
+                                          String titreString = titre.getText().toString();
+                                          if (!titreString.isEmpty()) {
+                                              RequeteServeurFile requeteFile = new RequeteServeurFile();
+                                              try {
+                                                  requeteFile.execute("POST", url, path, titre.getText().toString(), legende.getText().toString(), new Date().toString(), albumCourantId, utilisateurId).get();
+                                              } catch (InterruptedException e) {
+                                                  e.printStackTrace();
+                                              } catch (ExecutionException e) {
+                                                  e.printStackTrace();
+                                              }
 
-
-                                          /*Photo p = new Photo(titre.getText().toString(),legende.getText().toString(),"");
-                                          JSONObject photoJson = new JSONObject();
-                                          try {
-                                              photoJson.put("titre",p.getTitre());
-                                              album.put("date_creation","08-89");
-                                              album.put("uti_id",1);
-                                          } catch (JSONException e) {
-                                              e.printStackTrace();
-                                          }*/
-
-                                          RequeteServeurFile requeteFile = new RequeteServeurFile();
-                                          try {
-                                              requeteFile.execute("POST", url,path, titre.getText().toString(), legende.getText().toString(), new Date().toString(), albumCourantId, utilisateurId ).get();
-                                          } catch (InterruptedException e) {
-                                              e.printStackTrace();
-                                          } catch (ExecutionException e) {
-                                              e.printStackTrace();
+                                              Intent intent = new Intent(getApplicationContext(), AppareilPhotoActivity.class);
+                                              startActivity(intent);
                                           }
-
-                                          Intent intent = new Intent(getApplicationContext(), AppareilPhotoActivity.class);
-                                          startActivity(intent);
+                                          else {
+                                              Toast.makeText(ParamPhotoActivity.this, "Renseignez un titre", Toast.LENGTH_SHORT).show();
+                                          }
                                       }
 
 

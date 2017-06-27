@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.chris.blatoph.AmiAdapter;
 import com.example.chris.blatoph.Classes.Utilisateur;
@@ -62,7 +63,6 @@ public class AmisActivity extends AppCompatActivity {
 
         final String utilisateurId = obj.getUtilisateur().getId();
 
-
         final Button button = (Button) findViewById(R.id.ajt_ami);
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
@@ -74,21 +74,29 @@ public class AmisActivity extends AppCompatActivity {
                                               JSONObject ami = new JSONObject();
                                               JSONArray reponse = null;
                                               JSONObject id = null;
+                                              JSONObject code = null;
 
                                               try {
                                                   url = obj.getUrl() + "utilisateurs/ami/" + adresseEmail;
                                                   reponse = new RequeteServeur().execute("GET", url).get();
-                                                  id = reponse.getJSONObject(0);
 
+                                                  code = reponse.getJSONObject(1);
 
-                                                  ami.put("uti_id", utilisateurId);
-                                                  ami.put("ami_id", id.getString("id"));
+                                                  if (code.getString("code").equals("200")) {
+                                                      id = reponse.getJSONObject(0);
+                                                      ami.put("uti_id", utilisateurId);
+                                                      ami.put("ami_id", id.getString("id"));
 
-                                                  url = obj.getUrl() + "amis";
-                                                  reponse = new RequeteServeur().execute("POST", url, ami.toString()).get();
+                                                      url = obj.getUrl() + "amis";
+                                                      reponse = new RequeteServeur().execute("POST", url, ami.toString()).get();
 
-                                                  finish();
-                                                  startActivity(getIntent());
+                                                      finish();
+                                                      startActivity(getIntent());
+                                                  } else {
+                                                      if (code.getString("code").equals("404")) {
+                                                          Toast.makeText(AmisActivity.this, "Cette adresse ne correspond à aucun compte", Toast.LENGTH_SHORT).show();
+                                                      }
+                                                  }
 
                                               } catch (JSONException e) {
                                                   e.printStackTrace();
@@ -113,16 +121,16 @@ public class AmisActivity extends AppCompatActivity {
         afficherListeAmis();
     }
 
-    private List<Utilisateur> genererAmis(){
+    private List<Utilisateur> genererAmis() {
         List<Utilisateur> amis = new ArrayList<Utilisateur>();
 
         try {
 
             String url = obj.getUrl() + "utilisateurs/" + obj.getUtilisateur().getId() + "/amis";
             reponse = new RequeteServeur().execute("GET", url).get();
-            reponse.remove(reponse.length()-1);
+            reponse.remove(reponse.length() - 1);
 
-            for (int i = 0;i < reponse.length(); i++) {
+            for (int i = 0; i < reponse.length(); i++) {
                 JSONObject ami = reponse.getJSONObject(i);
                 amis.add(new Utilisateur(
                         ami.get("id").toString(),
@@ -144,7 +152,7 @@ public class AmisActivity extends AppCompatActivity {
         return amis;
     }
 
-    private void afficherListeAmis(){
+    private void afficherListeAmis() {
         List<Utilisateur> amis = genererAmis();
 
         adapter = new AmiAdapter(AmisActivity.this, amis);

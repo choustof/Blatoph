@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,15 @@ public class PhotoAdapter extends ArrayAdapter<Photo>{
         }
 
         Photo photo = getItem(position);
-        viewHolder.titre.setText(photo.getTitre()+ "\n" + photo.getLegende());
-        viewHolder.image.setImageBitmap(photo.getImage());
+
+        if(photo.getLegende().equals("null")){
+            viewHolder.titre.setText(photo.getTitre());
+            viewHolder.image.setImageBitmap(photo.getImage());
+        }
+        else{
+            viewHolder.titre.setText(photo.getTitre()+ "\n" + photo.getLegende());
+            viewHolder.image.setImageBitmap(photo.getImage());
+        }
 
         return convertView;
     }

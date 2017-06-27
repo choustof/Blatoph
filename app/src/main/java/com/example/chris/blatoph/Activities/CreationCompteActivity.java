@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.chris.blatoph.Http.RequeteServeur;
 import com.example.chris.blatoph.LesObjets;
@@ -68,6 +69,8 @@ public class CreationCompteActivity extends AppCompatActivity {
                                               if (motDePasse.equals(motDePasse2)) {
 
                                                   JSONObject utilisateur = new JSONObject();
+                                                  JSONObject id = null;
+                                                  JSONObject code = null;
                                                   try {
                                                       utilisateur.put("nom", prenom);
                                                       utilisateur.put("prenom", prenom);
@@ -78,6 +81,19 @@ public class CreationCompteActivity extends AppCompatActivity {
                                                       JSONArray reponse = null;
                                                       reponse = requete.execute("POST", obj.getUrl() + "utilisateurs", utilisateur.toString()).get();
 
+                                                      code = reponse.getJSONObject(reponse.length()-1);
+
+                                                      /*Si l'update se fait bien */
+                                                      if (code.getString("code").equals("201")) {
+                                                          Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                          startActivity(intent);
+                                                      }
+                                                      else{
+                                                          if (code.getString("code").equals("400")) {
+                                                              Toast.makeText(CreationCompteActivity.this, "Cette adresse email est déjà utilisée", Toast.LENGTH_SHORT).show();
+                                                          }
+                                                      }
+
                                                       Log.d("ReponseZer", reponse.toString());
                                                   } catch (InterruptedException e) {
                                                       e.printStackTrace();
@@ -86,9 +102,12 @@ public class CreationCompteActivity extends AppCompatActivity {
                                                   } catch (JSONException e) {
                                                       e.printStackTrace();
                                                   }
-                                                  Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                  startActivity(intent);
+                                              } else {
+                                                  Toast.makeText(CreationCompteActivity.this, "Veuillez renseigner des mots de passe identiques", Toast.LENGTH_SHORT).show();
                                               }
+                                          }
+                                          else{
+                                              Toast.makeText(CreationCompteActivity.this, "Merci de remplir tous les champs", Toast.LENGTH_SHORT).show();
                                           }
                                       }
 

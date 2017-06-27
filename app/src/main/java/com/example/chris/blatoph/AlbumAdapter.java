@@ -25,7 +25,6 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
     Resources res;
     public AlbumAdapter(Context context, List<Album> albums) {
         super(context, 0, albums);
-
         res = context.getResources();
     }
 
@@ -45,8 +44,10 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
         }
 
         Album album = getItem(position);
+
+        String date = album.dateCreation().substring(0,10);
         viewHolder.titre.setText(album.getTitre());
-        viewHolder.createur.setText(album.getCreateur().getPrenom());
+        viewHolder.createur.setText(date);
 
         return convertView;
     }

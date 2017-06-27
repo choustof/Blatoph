@@ -61,7 +61,7 @@
         android:layout_below="@+id/editText_email"
         android:layout_marginTop="46dp"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/editText_mdp2"
@@ -72,6 +72,6 @@
         android:layout_alignStart="@+id/editText_mdp"
         android:layout_marginBottom="22dp"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:textSize="18sp" />
 </RelativeLayout>

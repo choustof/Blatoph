@@ -45,11 +45,12 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String ...params) {
 
         Bitmap myBitmap = null;
-        Log.d("Reponse POST", params[0]);
+
         switch (params[0]){
             case "GET": myBitmap = getBitmapFromURL(params[1]);
                 break;
             case "POST": requetePost(params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
+                Log.d("Reponse POST", params[0]);
                 break;
             default:
                 break;
@@ -106,9 +107,12 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
         return lejson;
     }
 
-    public void requetePost(String url, String path, String titre, String legende,String date, String albumCourantId, String utilisateurId){
+    public void requetePost(String url, String path, String titre, String legende, String date, String albumCourantId, String utilisateurId){
 
-
+        if(legende.equals("")){
+            Log.d("PHOTO","NULL");
+            legende = " ";
+        }
         OkHttpClient client = new OkHttpClient();
 
         MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
@@ -143,116 +147,6 @@ public class RequeteServeurFile extends AsyncTask<String, Void, Bitmap> {
             }
         }
     }
-
-   /* public JSONArray requetePost(String url, String body){
-
-        Log.d("Reponse POST", "On est dans le post");
-        DataInputStream response = null;
-        InputStream serveurResponse = null;
-        String reponse = null;
-        HttpURLConnection connection = null;
-        URL obj = null;
-        int codeReponse = 0;
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1*1024*1024;
-        DataOutputStream dos = null;
-
-        String existingFileName = Environment.getExternalStorageDirectory()+"/Blatoph/blatoph-2017-06-03-15-40-17.jpg";
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary =  "*****";
-
-        JSONObject reponseJson = new JSONObject();
-        JSONArray lejson = new JSONArray();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File(existingFileName) );
-
-            obj = new URL(url);
-            connection = (HttpURLConnection) obj.openConnection();
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Connection","keep-alive");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
-            connection.setRequestProperty("Accept-Encoding", "gzip, deflate, br ");
-            connection.setRequestProperty("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4");
-            connection.setRequestProperty("Cache-Control","no-cache");
-
-
-            Log.d("Reponse POST", lineEnd);
-
-            dos = new DataOutputStream(connection.getOutputStream());
-            Log.d("Reponse POST", "On est la");
-
-            Log.d("LA REPONSE", "Content-Disposition: form-data; name=\"titre\"\r\n\r\nMDR"+lineEnd);
-
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-
-            dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"" + "blatoph-2017-06-03-15-40-17.jpg" + "\"" + lineEnd); // uploaded_file_name is the Name of the File to be uploaded
-            dos.writeBytes(lineEnd);
-
-            bytesAvailable = fileInputStream.available();
-            bufferSize = Math.min(bytesAvailable,maxBufferSize);
-            buffer = new byte[bufferSize];
-            bytesRead = fileInputStream.read(buffer,0,bufferSize);
-            while(bytesRead > 0){
-                dos.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                Log.d("Reponse POST", "+1");
-
-            }
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens+boundary+twoHyphens+lineEnd);
-            fileInputStream.close();
-            dos.flush();
-            dos.close();
-
-            try {
-                response = new DataInputStream ( connection.getInputStream() );
-                String str;
-                while (( str = response.readLine()) != null){
-                    Log.e("Debug","Server Response "+str);
-                }
-                response.close();
-            }
-            catch (IOException ioex){
-                Log.e("Debug", "error: " + ioex.getMessage(), ioex);
-            }
-
-            codeReponse = connection.getResponseCode();
-
-            Log.d("Reponse POST", ""+codeReponse);
-
-
-            serveurResponse = new URL(url).openStream();
-
-           // Log.d("Reponse POST", reponse);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (Scanner scanner = new Scanner(serveurResponse)) {
-            reponse = scanner.useDelimiter("\\A").next();
-        }
-
-        try {
-            lejson = new JSONArray(reponse);
-            reponseJson.put("code",codeReponse);
-
-            lejson.put(reponseJson);
-        } catch (JSONException e) {
-            Log.d("Requete", e.getMessage());
-        }
-        return lejson;
-    }*/
-
 
     public static Bitmap getBitmapFromURL(String src) {
         try {
