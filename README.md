@@ -6,6 +6,7 @@ We imagined an innovative ergonomics which differentiates our applications of th
 
 This repository contains the front to consume it.
 For the front, we have use Android Studio.
+(to see API : https://github.com/choustof/blatoph-server)
 This application is coded in Java
 
 # Run the website
@@ -16,7 +17,7 @@ prerequisite :
 - You must activate the developer mode
 
 
-At first you need to instale the server (cf project Blatoph Server)
+At first you need to instale the server (cf Read me in project Blatoph Server : https://github.com/choustof/blatoph-server/blob/master/README.md)
 
 For instal the front:
 
@@ -26,6 +27,8 @@ For instal the front:
 - Run the app (action "Run 'app'" in Android Studio)
 
 Blatoph will be instal in your phone and it opens automatically
+
+Actualy the app function in localhost, So your phone must be connect on the same network as your server
 
 
 
