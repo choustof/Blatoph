@@ -1,34 +1,31 @@
 # Blatoph
 
-Blatoph is a mobile app.
-It' use for share photos with friends.
-We imagined an innovative ergonomics which differentiates our applications of that already present on the market
+Blatoph is a mobile app that allows to share photos with friends.
+We imagined an innovative ergonomics which differentiates our application of that already present on the market
 
 This repository contains the front to consume it.
-For the front, we have use Android Studio.
+For the front, we used Android Studio.
 (to see API : https://github.com/choustof/blatoph-server)
-This application is coded in Java
+This application is developped in Java.
 
 # Run the APP
-This app is not on a web store, so to run it, you must have the Development Environment.
 
-prerequisite :
-- You must have a smathphone with (at least) Android 5.0
-- You must activate the developer mode
+To run it, you must have the Development Environment.
 
+Prerequisite :
+- You need a smartphone with (at least) Android 5.0
 
-At first you need to instale the server (cf Read me in project Blatoph Server : https://github.com/choustof/blatoph-server/blob/master/README.md)
+At first you need to install the server (cf Read me in project Blatoph Server : https://github.com/choustof/blatoph-server/blob/master/README.md)
 
-For instal the front:
+To install the front:
 
-- You need to instal Android studio.
+- You need to install Android studio.
 - Import the project to Android Studio 
-- Connect your telephone to your computer
-- Run the app (action "Run 'app'" in Android Studio)
+- Modify the url of the server by setting the IP Adress in the MainActivity.
+- Export the apk 
+- Install the apk in your smartphone
 
-Blatoph will be instal in your phone and it opens automatically
-
-Actualy the app function in localhost, So your phone must be connect on the same network as your server
+Actualy the app function in localhost, so your phone must be connect on the same network as your server
 
 
 
